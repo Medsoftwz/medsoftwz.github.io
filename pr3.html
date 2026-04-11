@@ -719,35 +719,6 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 // =======================================================
-// Auto-scroll naar volgende vraag + automatisch volgende sectie openen
-// =======================================================
-document.querySelectorAll('.question input[type="radio"]').forEach(radio => {
-  radio.addEventListener('change', function() {
-    const questionDiv = this.closest('.question');
-    const form = this.closest('form');
-
-    const allQuestions = Array.from(form.querySelectorAll('.question'));
-    const idx = allQuestions.indexOf(questionDiv);
-
-    // Als er nog een volgende vraag is → scroll naar die vraag
-    if (idx < allQuestions.length - 1) {
-      const nextQuestion = allQuestions[idx + 1];
-      nextQuestion.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } 
-    else {
-      // Laatste vraag → scroll automatisch naar de sectie-knop
-      const calcButton = form.querySelector('.calc');
-      if (calcButton) {
-        calcButton.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-
-      // → EN daarna automatisch de volgende sectie openen
-      openNextSection(form);
-    }
-  });
-});
-
-// =======================================================
 // Functie opent automatisch de volgende tab/sectie
 // =======================================================
 function openNextSection(currentForm) {
@@ -806,14 +777,65 @@ function autoShowTotalScore() {
   }, 400);
 }
 
+// =======================================================
+// AUTO SCROLL MET DELAY
+// =======================================================
 document.addEventListener('change', function(e) {
-  if (e.target.type === 'radio') {
 
-    // nieuwe functie: totaal automatisch tonen indien volledig ingevuld
-    if (allQuestionsAnswered()) {
-      autoShowTotalScore();
-    }
+  if (!e.target.matches('.question input[type="radio"]')) return;
+
+  const selectedRadio = e.target;
+  const questionDiv = selectedRadio.closest('.question');
+  const form = selectedRadio.closest('form');
+
+  const allQuestions = Array.from(form.querySelectorAll('.question'));
+  const idx = allQuestions.indexOf(questionDiv);
+
+  // ===================================================
+  // 🎯 DYNAMISCHE DELAY
+  // ===================================================
+  let delay;
+
+  if (idx < 2) {
+    delay = 1000; // eerste 2 vragen → traag
+  } else if (idx < 4) {
+    delay = 600; // midden → normaal
+  } else {
+    delay = 500;  // later → snel
   }
+
+  // 👉 totaal check
+  if (allQuestionsAnswered()) {
+    autoShowTotalScore();
+  }
+
+  // 👉 scroll met delay
+  setTimeout(() => {
+
+    if (idx < allQuestions.length - 1) {
+
+      const nextQuestion = allQuestions[idx + 1];
+      nextQuestion.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+
+    } else {
+
+      const calcButton = form.querySelector('.calc');
+
+      if (calcButton) {
+        calcButton.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+      }
+
+      openNextSection(form);
+    }
+
+  }, delay);
+
 });
 
 function buildPrintReport() {
