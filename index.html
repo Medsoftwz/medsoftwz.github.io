@@ -1,144 +1,119 @@
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
 <meta charset="UTF-8">
-<title>Medische Vragenlijsten</title>
+
+<title>Medische HTML</title>
 
 <style>
-body {
-    font-family: Verdana, Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #004080;
-    margin: 0;
-}
 
-h1, h2 {
-    text-align: center;
-    color: #008000;
-}
+body { font-family: "Segoe UI", Verdana, Arial, sans-serif; background-color: #eef2f5; color: #002850; margin: 0;}
 
+/* TITELS */
+h1 { text-align: center; color: #2e7d32; margin-top: 20px; font-size: 28px; }
+h2 { text-align: center; color: #2e7d32; font-size: 18px; margin-bottom: 10px; margin-top: 0; margin-bottom: 10px; font-weight: normal; }
+h3 { font-size: 16px; color: #3a3a3a; }
+
+/* SECTIONS */
 .section {
-    width: 90%;
+    width: 92%;
     max-width: 1000px;
     margin: 20px auto;
-    border: 2px solid #004080;
-    padding: 15px;
-    background-color: #ffffff;
-    border-radius: 6px;
-}
+    padding: 18px;
+    background: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #d0d7de;
+  
+/* subtiel baksteen/patroon effect */
+    background-image: linear-gradient( 0deg, rgba(0,0,0,0.02) 20px, transparent 0px),
+    linear-gradient( 90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
+    background-size: 20px 20px;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
 
+/* KOLOMMEN */
 .columns {
     display: flex;
-    gap: 20px;
+    gap: 30px;
     flex-wrap: wrap;
 }
 
 .column {
     flex: 1;
-    min-width: 300px;
+    min-width: 260px;
 }
 
-ul {
-    list-style: square;
-}
+/* LIJSTEN */
+ul { list-style: square; padding-left: 1; }
+li { margin-bottom: 8px; }
 
+/* LINKS */
 a {
-    cursor: pointer;
-    color: #0066cc;
+    color: #4da3ff;
     text-decoration: underline;
     font-weight: 500;
+    position: relative;
+    transition: all 0.2s ease;
 }
 
-a:hover {
-    text-decoration: underline;
-    color: #003366;
-}
+/* hover met pijltje */
+
+a::after { content: "→"; opacity: 0; margin-left: 5px; 
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    transform: translateX(-3px); }
+a:hover { color: #FF40FF; }
+a:hover::after { opacity: 1; transform: translateX(0); }
 
 </style>
 </head>
 
 <body>
 
-<h1>Diagnostiek - Medische vragenlijsten</h1>
-<h2>Ziektebeelden - Diagnosen - Therapie</h2>
+<h2>Medische HTML</h2>
+
+<p style="text-align:center; color:#666;"> Ziektebeelden – Diagnosen – Therapie – Classificatie - Vragenlijsten</p>
 
 <!-- ===================== -->
 <div class="section">
 <h2>Medische vragenlijsten</h2>
 
 <div class="columns">
+
 <div class="column">
 <ul>
-<li><a href="deprself.htm">Depressie screening</a></li>
-<li><a href="depressiescore.htm">Depressie ernst</a></li>
-<li><a href="angst.htm">Angst en Fobie</a></li>
-<li><a href="psychose.htm">Psychose</a></li>
-<li><a href="coma.htm">Glasgow coma score</a></li>
-<li><a href="ciwa.htm">Alcohol withdrawal</a></li>
-<li><a href="deliriumschaal.htm">Delirium (12 vragen)</a></li>
-<li><a href="deliriume.htm">Delirium (25 vragen)</a></li>
-<li><a href="mmse.htm">MMSE</a></li>
-<li><a href="pmdd.htm">Premenstruele klachten</a></li>
-<li><a href="burnout.htm">Burnout</a></li>
-<li><a href="brada.htm">Brada artritis</a></li>
+<li><a href="pr1.htm">Vragenlijst mictieklachten</a></li>
 </ul>
 </div>
 
 <div class="column">
 <ul>
-<li><a href="appendixalv.htm">Appendicitis (Alvarado)</a></li>
-<li><a href="appendixpas.htm">Appendicitis (PAS)</a></li>
-<li><a href="asmself.htm">Astma ernst</a></li>
-<li><a href="prosself.htm">Prostaat (IPSS)</a></li>
-<li><a href="sexq.htm">Erectie stoornis</a></li>
-<li><a href="fast.htm">Beroerte (FAST)</a></li>
-<li><a href="chads.htm">CHADS score</a></li>
-<li><a href="hasbled.htm">HAS-BLED</a></li>
-<li><a href="marburg.htm">Marburg score</a></li>
-<li><a href="timi.htm">TIMI score</a></li>
-<li><a href="grace.htm">GRACE calculator</a></li>
-<li><a href="medquest.htm">Alle vragenlijsten</a></li>
+<li><a href="pr3.htm">Vragenlijst bijwerkingen radiotherapie prostaat</a></li>
 </ul>
 </div>
-</div>
 
+</div>
 </div>
 
 <!-- ===================== -->
+
 <div class="section">
 <h2>Ziektebeelden</h2>
 
 <div class="columns">
 <div class="column">
 <ul>
-<li><a href="herpes.htm">Herpes simplex</a></li>
-<li><a href="ak.htm">Actinische keratose</a></li>
-<li><a href="vlo.htm">Vlooienbeten</a></li>
-<li><a href="tonsillitis.htm">Tonsillitis</a></li>
-<li><a href="prosaftr.htm">Prostaat aandoeningen</a></li>
-<li><a href="bppv.htm">BPPV</a></li>
-<li><a href="macula.html">Maculopathie</a></li>
-<li><a href="schoudernek.htm">Schouder/nek pijn</a></li>
-<li><a href="facetimg.htm">Lage rugpijn</a></li>
-<li><a href="immunosoort.htm">Autoimmuun ziekten</a></li>
+<li><a href="B1.htm">B1</a></li>
+
 </ul>
 </div>
 
 <div class="column">
 <ul>
-<li><a href="medap.htm">Angor pectoris</a></li>
-<li><a href="medcs.htm">Acuut coronair syndroom</a></li>
-<li><a href="coronobypas.htm">Bypass</a></li>
-<li><a href="fast.htm">Beroerte</a></li>
-<li><a href="fractuurpols.htm">Polsfractuur</a></li>
-<li><a href="knietrauma.htm">Knie trauma</a></li>
-<li><a href="fractuurol.htm">Fracturen onderbeen</a></li>
-<li><a href="pds.htm">Prikkelbare darm</a></li>
-<li><a href="persoonlijkheid.htm">Persoonlijkheidsstoornissen</a></li>
+<li><a href="B11.htm">B11</a></li>
 </ul>
 </div>
-</div>
 
+</div>
 </div>
 
 <!-- ===================== -->
@@ -146,10 +121,8 @@ a:hover {
 <h2>Differentiële diagnosen</h2>
 
 <ul>
-<li><a href="heupdd.htm">Heup differentiële diagnose</a></li>
-<li><a href="obstipat.htm">Obstipatie</a></li>
-<li><a href="artritis.htm">Gewrichtsklachten</a></li>
-<li><a href="buikpijn.htm">Buikpijn</a></li>
+<li><a href="C1.htm">C1</a></li>
+
 </ul>
 
 </div>
@@ -159,10 +132,8 @@ a:hover {
 <h2>Diagnose</h2>
 
 <ul>
-<li><a href="ko.htm#klinisch">Klinisch onderzoek</a></li>
-<li><a href="psyinterview.htm">Psychisch onderzoek</a></li>
-<li><a href="leeftijd.htm">Biologische leeftijd</a></li>
-<li><a href="fast.htm">Beroerte herkenning</a></li>
+<li><a href="D1">D1</a></li>
+
 </ul>
 
 </div>
@@ -172,11 +143,8 @@ a:hover {
 <h2>Classificatie</h2>
 
 <ul>
-<li><a href="pdf/icd10nl.pdf">ICD-10</a></li>
-<li><a href="pdf/icd10chapter5.pdf">ICD-10 hoofdstuk V</a></li>
-<li><a href="dsm5.htm">DSM-5</a></li>
+<li><a href="C1">C1</a></li>
 </ul>
-
 </div>
 
 <!-- ===================== -->
@@ -184,28 +152,14 @@ a:hover {
 <h2>Therapie</h2>
 
 <ul>
-<li><a href="medap.htm">Angor pectoris</a></li>
-<li><a href="medcs.htm">ACS</a></li>
-<li><a href="coronobypas.htm">Bypass</a></li>
-<li><a href="vkfibril.htm">Voorkamerfibrillatie</a></li>
-<li><a href="http://reference.medscape.com/drug-interactionchecker">Drug checker</a></li>
+<li><a href="T1">T1</a></li>
 </ul>
-
 </div>
 
 <!-- ===================== -->
-<div class="section">
-<h2>Levenseinde</h2>
 
-<ul>
-<li><a href="zorgeinde.htm">Palliatieve zorg / euthanasie</a></li>
-</ul>
-
-</div>
-
-<!-- ===================== -->
 <div class="section" style="text-align:center;">
-<p><a href="mailto:xyz22@proximus.be">E-mail</a></p>
+<p><a href="mailto:xyz21@skynet.be">E-postadres</a></p>
 <p><a href="disclaim.htm">Disclaimer</a></p>
 </div>
 
