@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MMSE Score</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 20px;
+    }
+    h1, h2 {
+      color: #004080;
+      text-align: center;
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .tabs button {
+      background-color: #886142;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      margin: 5px;
+      border-radius: 5px;
+    }
+    .tabs button.active {
+      background-color: #468CD2;
+    }
+    .tab-content {
+      display: none;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .question {
+      margin: 20px 0;
+      padding: 15px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      color: #004080;
+    }
+    .options {margin-top: 10px;}
+
+    label {color: #008000;}
+
+    button.calc {
+      background-color: #004080;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px auto;
+      display: block;
+    }
+    button.calc:hover {
+      background-color: #0066cc;
+    }
+    .result {
+      color: #800000;
+      margin-top: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: help;
+      color: #007BFF;
+    }    
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  display: inline-block;
+  background-color: #FEFFCF;
+  color: #004080;
+  text-align: left;
+  padding: 10px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  top: 125%;
+  left: 0;
+  margin-left: 0;
+  line-height: 1.5;
+  opacity: 0;
+  transition: opacity 0.3s;
+  white-space: normal;
+  width: max-content;
+  max-width: 90vw;
+}
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+
+.auto-style6 {text-align: center;}
+.auto-style8 {color: #FF0000;}
+
+  </style>
+</head>
+<body>
+
+<h2>Mini-Mental State Examination - MMSE</h2>
+
+<div class="tabs">
+  <button class="tablink active" onclick="openTab(event, '1wz')">Oriëntatie</button>
+  <button class="tablink" onclick="openTab(event, '2wz')">Geheugen</button>
+  <button class="tablink" onclick="openTab(event, '3wz')">Actie</button>
+  <button class="tablink" onclick="openTab(event, '4wz')">Ruimtelijk</button>
+</div>
+
+<div id="1wz" class="tab-content active">
+  <form id="form1wz">
+
+<div class="question">
+
+      <label>Welk jaar is het nu ? </label>
+      
+      <span class="tooltip">ㅤ[?]<br>
+      <span class="tooltiptext">
+
+      <ul style="margin:0; padding-left:20px;">
+        <li>Geef 10 seconden de tijd, voor ieder antwoord</li>
+        <li>Alleen exacte jaar is goed</li>
+      </ul>
+
+   </span> </span> </br>
+
+      <input type="radio" name="1q1" value="0" checked> Niet Juist - Fout<br>
+      <input type="radio" name="1q1" value="1"> Juist - Goed<br>
+
+    </div>
+
+<div class="question">
+
+      <label>Welk seizoen is het ?</label>
+
+      <span class="tooltip">ㅤ[?]<br>
+      <span class="tooltiptext">Indien gedurende de laatste week van het oude seizoen of de eerste week van het nieuwe seizoen,<br> reken beide seizoenen goed.<br> Reken zowel 1 maart als 21 maart goed voor het begin van de lente, enzovoorts.
+   </span> </span> </br>
+
+      <input type="radio" name="1q2" value="0" checked> Fout<br>
+      <input type="radio" name="1q2" value="1"> Juist - Goed<br>
+
+    </div>
+
+<div class="question">
+
+      <label>Welke maand van het jaar is het ?</label>
+
+      <span class="tooltip">ㅤ[?]<br>
+      <span class="tooltiptext">
+
+      </span> </span> </br>
+
+      <input type="radio" name="1q3" value="0" checked> Fout<br>
+      <input type="radio" name="1q3" value="1"> Juist - Goed<br>
+
+    </div>
+
+    <div class="question">
+
+      <label>Wat is de datum van vandaag ?</label>
+
+      <span class="tooltip">ㅤ[?]<br>
+      <span class="tooltiptext">
+
+      </span> </span> </br>
+
+      <input type="radio" name="1q4" value="0" checked> Fout<br>
+      <input type="radio" name="1q4" value="1"> Juist - Goed<br>
+
+    </div>
+
+    <div class="question">
+
+      <label>Welke dag van de week is het ?</label>
+
+      <span class="tooltip">ㅤ[?]<br>
+      <span class="tooltiptext">
+
+      </span> </span> </br>
+
+      <input type="radio" name="1q5" value="0" checked> Fout<br>
+      <input type="radio" name="1q5" value="1"> Juist - Goed<br>
+
+    </div>
+
+    <div class="question">
+
+      <label>In welk land wonen we (in welke provincie zijn we nu) ?</label>
+
+      <span class="tooltip">ㅤ[?]<br>
+      <span class="tooltiptext">
+
+      </span> </span> </br>
+
+      <input type="radio" name="1q6" value="0" checked> Fout<br>
+      <input type="radio" name="1q6" value="1"> Juist - Goed<br>
+
+    </div>
+    <div class="question">
+
+      <label>In welke plaats (gemeente - stad - dorp) zijn we nu ?</label>
+
+      <span class="tooltip">ㅤ[?]<br>
+      <span class="tooltiptext">
+
+      </span> </span> </br>
+
+      <input type="radio" name="1q7" value="0" checked> Fout<br>
+      <input type="radio" name="1q7" value="1"> Juist - Goed<br>
+
+    </div>
+
+    <div class="question">
+
+      <label>Wat is de naam van de straat (of van het ziekenhuis of van het WZC), waar je woont of verblijft ?
+
+      <span class="tooltip">ㅤ[?]
+      <span class="tooltiptext">Vraag naar de straatnaam, <br>de naam van het ziekenhuis, <br>naam van WZC of de afdeling 	enz.<br> Geef 10 seconden de tijd, voor ieder antwoord <br>Accepteer alleen exact goede antwoorden </br>
+
+      </span> </span> </br>
+
+      <input type="radio" name="1q8" value="0" checked> Fout<br>      
+      <input type="radio" name="1q8" value="1"> Juist - Goed<br>
+
+    </div>
+
+    <div class="question">
+
+      <label>Wat is de naam van deze afdeling (of kamernummer) of huisnummer van uw woning</label>
+
+      <span class="tooltip">ㅤ[?]<br>
+      <span class="tooltiptext">
+
+      </span> </span> </br>
+
+      <input type="radio" name="1q9" value="0" checked> Fout<br>
+      <input type="radio" name="1q9" value="1"> Juist - Goed<br>
+
+    </div>
+
+<div class="question">
+
+      <label>Waar woont (of werkt) de burgemeester van uw gemeente (gemeentehuis - thuisadres) ?</label>
+
+      <span class="tooltip">ㅤ[?]<br>
+      <span class="tooltiptext">
+
+      </span> </span> </br>
+
+      <input type="radio" name="1q10" value="0" checked> Fout<br>
+      <input type="radio" name="1q10" value="1"> Juist - Goed<br>
+
+    </div>
+
+    <button type="button" class="calc" onclick="calculateSection('form1wz', 'result1wz')">Bereken Sectie A</button>
+    <div id="result1wz" class="result"></div>
+  </form>
+</div>
+
+<div id="2wz" class="tab-content"><form id="form2wz">
+
+<div class="question">
+
+      <label>Opnoemen van drie voorwerpen</label>
+
+      <span class="tooltip"> [?]<br>
+      <span class="tooltiptext">
+
+      <ul style="margin:0; padding-left:20px;">
+        <li>Ik noem nu drie voorwerpen</li>
+        <li>Wilt u die herhalen nadat ik ze alle drie gezegd heb?</li>
+        <li>Onthoud ze want ik vraag u over enkele minuten ze opnieuw te noemen</li>
+        <li>Zeg de 3 woorden met een interval van ongeveer 1 seconde: <span class="auto-style8">Appel - Sleutel - 
+ 		 Stoel </span></li>
+        <li>Geef 20 seconden voor het antwoord</li>
+        <li>Geef 1 punt voor ieder goed antwoord bij de eerste poging</li>
+        <li>Als de persoon niet alle 3 voorwerpen genoemd heeft, herhaal ze</li>
+        <li>Een maximum van vijf herhalingen</li>
+      </ul>
+
+      </span> </span> </br>
+
+      <input type="radio" name="2q1" value="0" checked> Geen woorden herhaald<br>
+      <input type="radio" name="2q1" value="1"> 1 voorwerp opgenoemd en dus herhaald<br>
+      <input type="radio" name="2q1" value="2"> 2 voorwerpen opgenoemd<br>
+      <input type="radio" name="2q1" value="3"> 3 voorwerpen opgenoemd<br>
+
+    </div>
+
+
+<div class="question">
+
+      <label>Wilt u van het getal 100, zeven aftrekken en van wat overblijft, opnieuw zeven aftrekken
+en zo doorgaan tot ik stop zeg </label><br>
+
+      <span class="tooltip">ㅤ[?]<br>
+      <span class="tooltiptext">
+
+      <ul style="margin:0; padding-left:20px;">
+        <li>Schrijf de antwoorden van de persoon op</li>
+        <li>Als iemand is begonnen - onderbreek niet - laat hem/haar doorgaan tot 5 aftrekkingen zijn gemaakt.</li>
+        <li>Als de persoon stopt voordat 5 aftrekkingen zijn gemaakt, herhaal maximaal 3 maal de oorspronkelijke 				instructie:</li>
+        <li>instructie: blijf 7 aftrekken van wat er is overgebleven </span></li>
+
+<p class="auto-style3">&nbsp;Scoringsvoorbeelden:<br>93, 86, 
+79, 72, 65&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 5 punten (allen goed)&nbsp; <br>93, 
+<span class="auto-style8">88</span>, 81, 74, 67&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 4 punten (1 
+fout) <br><span class="auto-style8">92</span>, 85, 78, 71, 64&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 
+4 punten (1 fout) <br>93, <span class="auto-style8">87</span>, 
+80, 73, <span class="auto-style8">64</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 3 punten (2 
+fout) <br><span class="auto-style8">92</span>, 85, 78, 71, 
+<span class="auto-style8">63</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 3 punten (2 
+fout) <br>93, <span class="auto-style8">87</span>, 80, <span class="auto-style8">75</span>, 
+<span class="auto-style8">67</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 2 punten (3 
+fout) <br>93, <span class="auto-style8">87, 
+81, 75, 69</span>&nbsp;&nbsp;&nbsp;&nbsp; : 1 punt (4 fout)</p>
+
+      </ul>
+
+      </span> </span> </br>
+
+      <label>Wilt u het woord " worst " achterstevoren spellen</label> <font color="#FF0000;">(indien vorige vraag niet kon worden beantwoord)</font><br>
+
+      <span class="tooltip">ㅤ[?]<br>
+      <span class="tooltiptext">Als het rekenen niet lukt, ga dan over tot het achteruit spellen van het woord 
+&quot;worst&quot;. Geef 30 seconden de tijd hiervoor.<br>
+
+Scoringsvoorbeelden spelling:<br>
+* <font color="#FF0000;"tsrow></font>: score 5<br>
+* ontbreken van 1 letter, b.v. tsrw, trow, tsow, tsro: score 4<br>
+* ontbreken van 2 letters, b.v. tsr, sro, tsw: score 3<br>
+* omkering van 2 letters, b.v. tsorw, trsow, tsrwo, tswor:&nbsp;score 3<br>* ontbreken of omkeren van 3 letters, b.v. torsw , ts, ow: score 2<br>
+* omkeren van 4 letters, b.v. trswo, strwo:&nbsp;score 1<br>
+Als de persoon het woord &quot;worst&quot; niet kan spellen, zelfs niet met hulp, scoor dan 0.</p>
+
+      </span> </span> </br>
+
+  <input type="radio" name="2q2" value="5"> 5 goede antwoorden <br>
+  <input type="radio" name="2q2" value="4"> 4 goede antwoorden<br>
+  <input type="radio" name="2q2" value="2"> 3 goede antwoorden <br>
+  <input type="radio" name="2q2" value="2"> 2 goede antwoorden <br>
+  <input type="radio" name="2q2" value="1"> 1 goed antwoord<br>
+  <input type="radio" name="2q2" value="0" checked> Geen (0) goede antwoorden<br>
+
+    </div>
+
+<div class="question">
+
+      <label> Noemt u nogmaals de drie voorwerpen van zojuist </label>
+
+      <span class="tooltip">ㅤ[?]<br>
+      <span class="tooltiptext">De drie woorden waren: <font color="#FF0000;"> Appel - Sleutel - Stoel</font>
+      </span> </span> </br>
+
+      <input type="radio" name="2q4" value="0" checked> Geen goed antwoord<br>
+      <input type="radio" name="2q4" value="1"> 1 goed antwoord<br>
+      <input type="radio" name="2q4" value="2"> 2 goede antwoorden <br>
+      <input type="radio" name="2q4" value="3"> 3 goede antwoorden <br>
+
+</div>
+
+    <button type="button" class="calc" onclick="calculateSection('form2wz', 'result2wz')">Bereken Sectie B</button>
+    <div id="result2wz" class="result"></div>
+  </form>
+</div>
+
+<div id="3wz" class="tab-content"><form id="form3wz">
+
+<div class="question">
+
+      <label> Wat is dit ? En wat is dat ? >>> Wijs een pen (of potlood) en een horloge aan. </label>
+
+      <span class="tooltip">ㅤ[?]<br>
+      <span class="tooltiptext">Laat een horloge zien. Accepteer 'klok' of 'horloge', maar niet 'tijd'<br> Geef 10 seconden voor het antwoord.<br>Laat een potlood zien. Accepteer alleen potlood en niet bijvoorbeeld pen <br> Geef 10 seconden voor het 
+antwoord.
+      </span> </span> </br>
+
+      <input type="radio" name="3q1" value="0" checked> Geen goed antwoord<br>
+      <input type="radio" name="3q1" value="1"> 1 goed antwoord<br>
+      <input type="radio" name="3q1" value="2"> 2 goede antwoord<br>
+
+</div>
+
+<div class="question">
+
+      <label> Wilt u de volgende zin herhalen: " Nu eens dit en dan weer dat " </label>
+
+      <span class="tooltip">ㅤ[?]<br>
+      <span class="tooltiptext"> Reken alleen het exacte antwoord goed </font>
+      </span> </span> </br>
+
+      <input type="radio" name="3q2" value="0" checked> Geen goed antwoord<br>
+      <input type="radio" name="3q2" value="1"> 1 goed antwoord<br>
+
+
+</div>
+
+
+    <button type="button" class="calc" onclick="calculateSection('form3wz', 'result3wz')">Bereken Sectie C</button>
+    <div id="result3wz" class="result"></div>
+  </form>
+</div>
+
+<div id="4wz" class="tab-content"><form id="form4wz">
+
+<div class="question">
+
+      <label> Wilt u deze woorden lezen en dan doen wat er staat ?</label>
+
+      <span class="tooltip">ㅤ[?]<br>
+      <span class="tooltiptext">>>> Toon papier met daarop in grote letters: 
+	" Sluit uw ogen "<br> of "houd je handen voor de ogen"
+
+      </span> </span> </br>
+
+      <input type="radio" name="4q1" value="0" checked> Doet het niet<br>
+      <input type="radio" name="4q1" value="1"> Voert de opdracht uit: bv. de ogen worden gesloten <br>
+
+
+</div>
+
+<div class="question">
+
+      <label> Wilt u dit papiertje pakken
+
+<font color="#FF0000;">
+<ol>
+<li>met uw rechterhand (actie 1)</li>
+<li>het dubbelvouwen (actie 2) en</li>
+<li>het op uw schoot (op uw knie) leggen (actie 3)
+	<span class="tooltip">ㅤ[?]
+	<span class="tooltiptext">
+	Herhaal deze opdracht niet <br>
+	Geef 30 seconden <br>
+	Scoor 1 punt voor iedere correct uitgevoerde actie
+</li></ol></span></label></font>
+
+      <input type="radio" name="4q2" value="0" checked> Geen enkele van de drie mogelijke acties uitgevoerd<br>
+      <input type="radio" name="4q2" value="1"> 1 actie goed uitgevoerd</ol></font></label><br>
+      <input type="radio" name="4q2" value="2"> 2 acties goed uitgevoerd<br>
+      <input type="radio" name="4q2" value="3"> 3 acties goed uitgevoerd<br>
+
+</div>
+
+
+<div class="question">
+
+      <label> Wilt u voor mij een volledige zin opschrijven op dit stuk papier ?</label>
+
+      <span class="tooltip">ㅤ[?]<br>
+      <span class="tooltiptext">Voorbeeld van een zin: "Het is zomer" <br> 
+		Geef 30 seconden <br>
+		Scoor 1 punt als de zin een onderwerp en gezegde heeft en betekenis heeft. <br>
+		Negeer spellingsfouten.
+      </span> </span> </br>
+
+      <input type="radio" name="4q3" value="0" checked> Geen goed antwoord<br>
+      <input type="radio" name="4q3" value="1"> Goede zin met onderwerp en betekenis <br>
+
+</div>
+
+<div class="question">
+
+	<label> Wilt u deze figuur natekenen op dit blad papier ?</label>
+      	<span class="tooltip">ㅤ[?]<br>
+  	<span class="tooltiptext">
+    <img src="data:image/jpeg;base64,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" alt="MMSE figuur" style="max-width:300px; height:auto;">
+      </span> </span> </br>
+
+      <input type="radio" name="4q4" value="0" checked> Geen goede figuur nagetekend <br>
+      <input type="radio" name="4q4" value="1">Goed - De juiste figuur werd nagetekend <br>
+
+</label>
+
+</div>
+
+    <button type="button" class="calc" onclick="calculateSection('form4wz', 'result4wz')">Bereken Sectie D</button>
+    <div id="result4wz" class="result"></div>
+
+  </form>
+
+</div>
+
+<!-- Totaalknop en downloadknop -->
+<button type="button" class="calc" onclick="calculateTotal()">Toon totaalscore</button>
+<button type="button" class="calc" onclick="downloadTxt()">Opslaan als TXT</button>
+<div id="totalResult" class="result"></div>
+
+<script>
+function openTab(evt, tabName) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tablink').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabName).classList.add('active');
+  evt.currentTarget.classList.add('active');
+}
+
+function scrollToElement(elementId) {
+  const el = document.getElementById(elementId);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+function calculateSection(formId, resultId) {
+  const form = document.getElementById(formId);
+  const questions = form.querySelectorAll('.question');
+  let score = 0;
+  let maxScore = 0;
+
+  for (const question of questions) {
+    const radios = question.querySelectorAll('input[type="radio"]');
+    const checked = question.querySelector('input[type="radio"]:checked');
+    if (!checked) {
+      alert("Beantwoord alle vragen in deze sectie.");
+      return;
+    }
+    score += parseInt(checked.value);
+    let max = 0;
+    radios.forEach(r => {
+      const val = parseInt(r.value);
+      if (!isNaN(val) && val > max) max = val;
+    });
+    maxScore += max;
+  }
+
+  const percentage = (score / maxScore) * 100;
+  document.getElementById(resultId).innerText =
+    `Sectiescore: ${score} (max. punten: ${maxScore})\nRapport: ${percentage.toFixed(1)}%`;
+  scrollToElement(resultId);
+}
+
+function calculateTotal() {
+  const allQuestions = document.querySelectorAll('.question');
+  const allChecked = document.querySelectorAll('input[type="radio"]:checked');
+
+  if (allChecked.length < allQuestions.length) {
+    alert("Gelieve alle vragen te beantwoorden vooraleer het totaal te berekenen.");
+    return;
+  }
+
+  let totalScore = 0;
+  let maxScore = 0;
+
+  allQuestions.forEach(question => {
+    const radios = question.querySelectorAll('input[type="radio"]');
+    const checked = question.querySelector('input[type="radio"]:checked');
+    totalScore += parseInt(checked.value);
+
+    let max = 0;
+    radios.forEach(r => {
+      const val = parseInt(r.value);
+      if (!isNaN(val) && val > max) max = val;
+    });
+    maxScore += max;
+  });
+
+  // 💡 Functieverlies berekenen
+  const percentage = ((totalScore / maxScore) * 100).toFixed(1);
+
+  // 💡 Interpretatie op basis van score
+  let feedback = '';
+  if (totalScore <= 9) feedback = "Ernstig congnitief gestoord";
+  else if (totalScore <= 20) feedback = "Matig cognitief gestoord";
+  else if (totalScore <= 24) feedback = "Licht cognitief gestoord";
+  else feedback = "Cognitieve stoornis is niet aangetoond";
+
+  // ✅ Weergave op scherm
+  const totalDiv = document.getElementById('totalResult');
+  totalDiv.innerHTML = `
+    Totale score: ${totalScore} (max. punten: ${maxScore})<br>
+    Behaald procent: ${percentage}%<br>
+    Interpretatie: <strong>${feedback}</strong>
+  `;
+  totalDiv.scrollIntoView({ behavior: 'smooth' });
+}
+
+
+function downloadTxt() {
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('nl-BE');
+  const timeStr = now.toLocaleTimeString('nl-BE');
+
+  let totalScore = 0;
+  let maxScore = 0;
+  let content = "";
+
+  const allQuestions = document.querySelectorAll('.question');
+  const allChecked = document.querySelectorAll('input[type="radio"]:checked');
+
+  if (allChecked.length < allQuestions.length) {
+    alert("Gelieve alle vragen te beantwoorden.");
+    return;
+  }
+
+  content += `Datum: ${dateStr}, ${timeStr}\n\n`;
+
+  allQuestions.forEach((question, index) => {
+    const radios = question.querySelectorAll('input[type="radio"]');
+    const checked = question.querySelector('input[type="radio"]:checked');
+    const label = question.querySelector('label').innerText;
+    const antwoord = checked.nextSibling.textContent.trim();
+
+    content += `${index + 1}. ${label}: ${antwoord}\n`;
+
+    totalScore += parseInt(checked.value);
+    let max = 0;
+    radios.forEach(r => {
+      const val = parseInt(r.value);
+      if (!isNaN(val) && val > max) max = val;
+    });
+    maxScore += max;
+  });
+
+  const percentage = ((totalScore / maxScore) * 100).toFixed(1);
+  let interpretation = '';
+  if (percentage < 25) interpretation = 'Lichte klachten';
+  else if (percentage < 50) interpretation = 'Matige klachten';
+  else if (percentage < 75) interpretation = 'Ernstige klachten';
+  else interpretation = 'Zeer ernstige klachten';
+
+  content = `Datum: ${dateStr}, ${timeStr}\n` +
+            `Resultaat: ${totalScore} (max. minpunten: ${maxScore})\n` +
+            `Functieverlies: ${percentage}%\n` +
+            `Interpretatie: ${interpretation}\n\nAntwoorden:\n` +
+            content;
+
+  const blob = new Blob([content], { type: "text/plain" });
+  const filename = `MMSE secties ${dateStr.replace(/\//g, '-')}.txt`;
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  link.click();
+}
+</script>
+
+</body>
+</html>
