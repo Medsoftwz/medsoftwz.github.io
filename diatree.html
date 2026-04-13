@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Medische kennisboom</title>
+
+<!-- DATA BESTANDEN -->
+<script src="boomlink.js"></script>
+<script src="trflink.js"></script>
+
+<style>
+body {
+    font-family: Verdana, Geneva, sans-serif;
+    margin: 8px;
+    background: linear-gradient(to bottom, #ffffff, #eef3f8);
+}
+
+h3 {
+    text-align: center;
+    color: #004080;
+}
+
+#controls { text-align: center; margin-bottom: 10px; }
+
+#tree {
+    background-color: #F5EFEF;
+    padding: 30px;
+    border-radius: 8px;
+    min-height: 400px;
+}
+
+ul { list-style: none; padding-left: 20px; }
+
+.node {
+    display: inline-flex;
+    gap: 6px;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.node.clickable { cursor: pointer; }
+.node.clickable:hover { background-color: #fff3b0; }
+
+.arrow { width: 14px; display: inline-block; }
+
+.icd-item {
+    color: #444;
+    font-style: italic;
+    margin-left: 18px;
+}
+
+.search-item {
+    cursor: pointer;
+    padding: 4px;
+    text-decoration: underline;
+}
+
+#search-container {
+    text-align: center;
+    margin-bottom: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<h3>Medische kennisboom</h3>
+
+<div id="controls">
+    <button onclick="expandAll()">➕ Alles uitklappen</button>
+    <button onclick="collapseAll()">➖ Alles inklappen</button>
+</div>
+
+<div id="search-container">
+    <input type="text"
+           id="searchBox"
+           placeholder="Zoek term of code..."
+           oninput="searchInData()"
+           style="padding:6px; width:280px;">
+</div>
+
+<div id="searchResults" style="display:none;"></div>
+
+<div id="tree">⏳ Laden...</div>
+
+<script>
+let treeData = null;
+let linkMap = Object.create(null);
+let hierarchy = [];
+let searchIndex = [];
+
+/* INIT */
+window.addEventListener("DOMContentLoaded", initApp);
+
+function initApp() {
+    if (!window.wzTree || !window.data) {
+        document.getElementById("tree").innerHTML =
+            "❌ Data niet geladen";
+        return;
+    }
+
+    treeData = wzTree;
+    buildLinkMap(data);
+    hierarchy = buildHierarchy(treeData);
+    buildSearchIndex();
+
+    renderRoot();
+}
+
+/* NORMALIZE */
+function normalizeCode(value) {
+    return String(value).trim().toUpperCase();
+}
+
+/* LINKMAP */
+function buildLinkMap(linkData) {
+    for (const l of linkData) {
+        if (!l || !l.boomCode) continue;
+
+        const codes = String(l.boomCode).split(",");
+
+        for (let c of codes) {
+            const key = normalizeCode(c);
+            if (!key) continue;
+
+            if (!linkMap[key]) linkMap[key] = [];
+            linkMap[key].push(l);
+        }
+    }
+}
+
+/* HIERARCHY */
+function buildHierarchy(items) {
+    const nodes = {};
+    const roots = [];
+
+    for (const i of items) {
+        const key = normalizeCode(i.code);
+        if (nodes[key]) continue;
+
+        nodes[key] = {
+            code: i.code,
+            codeKey: key,
+            terms: i.terms,
+            children: []
+        };
+    }
+
+    for (const n of Object.values(nodes)) {
+        const parentKey = n.codeKey.slice(0, -1);
+
+        if (nodes[parentKey]) {
+            nodes[parentKey].children.push(n);
+        } else {
+            roots.push(n);
+        }
+    }
+
+    return roots;
+}
+
+/* RENDER ROOT */
+function renderRoot() {
+    document.getElementById("tree").innerHTML =
+        "<ul>" + hierarchy.map(renderNode).join("") + "</ul>";
+}
+
+/* NODE */
+function renderNode(n) {
+    const hasChildren = n.children.length > 0;
+    const hasLinks = !!linkMap[n.codeKey];
+    const expandable = hasChildren || hasLinks;
+
+    return `
+<li>
+  <span id="node-${n.codeKey}"
+        class="node ${expandable ? "clickable" : ""}"
+        ${expandable ? `onclick="toggleNode('${n.codeKey}')"` : ""}>
+    <span class="arrow">${expandable ? "▶" : ""}</span>
+    ${n.code} – ${n.terms[0]}
+  </span>
+  <div id="children-${n.codeKey}" style="display:none;"></div>
+</li>`;
+}
+
+/* TOGGLE (LAZY) */
+function toggleNode(codeKey) {
+    const el = document.getElementById("children-" + codeKey);
+    const arrow = document.querySelector("#node-" + codeKey + " .arrow");
+
+    const open = el.style.display === "block";
+
+    if (open) {
+        el.style.display = "none";
+        arrow.textContent = "▶";
+        return;
+    }
+
+    if (!el.dataset.loaded) {
+        const node = findNode(codeKey, hierarchy);
+
+        let html = "";
+
+        if (node.children.length) {
+            html += "<ul>" + node.children.map(renderNode).join("") + "</ul>";
+        }
+
+        if (linkMap[codeKey]) {
+            html += "<ul>";
+            for (const l of linkMap[codeKey]) {
+                html += `<li><span class="icd-item">${l.trefwoord} – ${l.icdCode}</span></li>`;
+            }
+            html += "</ul>";
+        }
+
+        el.innerHTML = html;
+        el.dataset.loaded = "true";
+    }
+
+    el.style.display = "block";
+    arrow.textContent = "▼";
+}
+
+/* FIND NODE */
+function findNode(key, nodes) {
+    for (const n of nodes) {
+        if (n.codeKey === key) return n;
+        const found = findNode(key, n.children);
+        if (found) return found;
+    }
+}
+
+/* SEARCH INDEX */
+function buildSearchIndex() {
+    searchIndex = treeData.map(i => ({
+        code: i.code,
+        term: i.terms?.[0] || "",
+        search: (i.code + " " + (i.terms?.[0] || "")).toLowerCase()
+    }));
+}
+
+/* SEARCH */
+function searchInData() {
+    const q = document.getElementById("searchBox").value.toLowerCase();
+
+    if (!q) return;
+
+    const results = searchIndex.filter(i => i.search.includes(q)).slice(0, 100);
+
+    const box = document.getElementById("searchResults");
+
+    box.innerHTML =
+        "<ul>" +
+        results.map(r =>
+            `<li class="search-item" onclick="jumpToNode('${r.code}')">
+             ${r.code} – ${r.term}</li>`).join("") +
+        "</ul>";
+
+    box.style.display = "block";
+}
+
+/* JUMP */
+function jumpToNode(code) {
+    const el = document.getElementById("node-" + normalizeCode(code));
+    if (!el) return;
+
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+    el.style.background = "yellow";
+
+    setTimeout(() => el.style.background = "", 2000);
+}
+
+/* EXPAND / COLLAPSE */
+function expandAll() {
+    document.querySelectorAll(".node.clickable").forEach(n => n.click());
+}
+
+function collapseAll() {
+    document.querySelectorAll("[id^=children-]").forEach(d => d.style.display = "none");
+    document.querySelectorAll(".arrow").forEach(a => a.textContent = "▶");
+}
+</script>
+
+</body>
+</html>
