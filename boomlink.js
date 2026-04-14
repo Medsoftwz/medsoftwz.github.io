@@ -1,9 +1,14 @@
 window.wzTree = [
 
-{ terms: ["Bepaalde infectieuze of parasitaire ziekten | Infectiologie"], code: "1A" },
+{ terms: ["Infectiologie"], code: "1" },
+{ terms: ["Oncologie"], code: "2" },
+{ terms: ["Hematologie"], code: "3" },
+{ terms: ["Immunologie"], code: "4" },
+{ terms: ["Genetica"], code: "7" },
 
   // 1A0 Bacteriële infecties
-  { code: "1A0", terms: ["Bacteriële infecties"] },
+{ terms: ["Bepaalde infectieuze of parasitaire ziekten"], code: "1A" },
+    { code: "1A0", terms: ["Bacteriële infecties"] },
   
     { code: "1A00", terms: ["Sepsis"] },
 	  
@@ -108,7 +113,7 @@ window.wzTree = [
     { code: "1A972", terms: ["Postinfectieuze glomerulonefritis"] },
     { code: "1A973", terms: ["Guillain‑Barré syndroom (postinfectieus)"] },
 
-{ terms: ["Neoplasmata | Oncologie"], code: "2A" },
+{ terms: ["Neoplasmata"], code: "2A" },
 
   // 2A0 Goedaardige neoplasmata
   { code: "2A0", terms: ["Goedaardige neoplasmata"] },
@@ -196,7 +201,7 @@ window.wzTree = [
     { code: "2A95", terms: ["Metastase zonder bekende primaire tumor"] },
     { code: "2A96", terms: ["Neoplasma NNO"] },
 
-{ terms: ["Ziekten van het bloed of bloedvormende organen | Hematologie"], code: "3A" },
+{ terms: ["Ziekten van het bloed of bloedvormende organen"], code: "3A" },
 
   // 3A0 Anemieën
   { code: "3A0", terms: ["Anemieën"] },
@@ -251,7 +256,7 @@ window.wzTree = [
   // 3A8 Overige bloedziekten
   { code: "3A8", terms: ["Overige bloedziekten"] },
 
-{ terms: ["Ziekten van het immuunsysteem | Immunologie"], code: "4A" },
+{ terms: ["Ziekten van het immuunsysteem"], code: "4A" },
 
   // 4A0 Primaire immuundeficiënties
   { code: "4A0", terms: ["Primaire immuundeficiënties"] },
