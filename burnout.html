@@ -12,10 +12,9 @@
 	  padding-bottom: 100px;
     }
 
-    h1, h2 {
-      color: #004080;
-      text-align: center;
-    }
+h1 { color: #2e7d32; font-size: 16px; font-weight: normal; margin-top: 0px; margin-bottom: 0px; text-align: center; }
+h2 { color: #2e7d32; font-size: 16px; font-weight: normal; margin-top: 0px; margin-bottom: 0px;}
+h3 { color: #3a3a3a; font-size: 16px; }
 
     .tabs {
       display: flex;
@@ -25,7 +24,7 @@
     }
 
     .tabs button {
-      background-color: #004080;
+      background-color: #468CD2;
       color: white;
       padding: 10px 20px;
       border: none;
@@ -34,9 +33,7 @@
       border-radius: 5px;
     }
 
-    .tabs button.active {
-      background-color: #0066cc;
-    }
+    .tabs button.active { background-color: #3BAF17; }
 
     .tab-content {
       display: none;
@@ -46,26 +43,20 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
-    .tab-content.active {
-      display: block;
-    }
+    .tab-content.active { display: block; }
 
     .question {
       margin: 20px 0;
-      padding: 15px;
+      padding: 4px;
       background: #fff;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       color: #004080;
     }
 
-    .options {
-      margin-top: 10px;
-    }
+    .options { margin-top: 10px; }
 
-    label {
-      color: #008000;
-    }
+    label { color: #008000; }
 
     button.calc {
       background-color: #004080;
@@ -118,8 +109,36 @@
 
 @keyframes pulse {
   0%   { transform: scaleY(1); }
-  50%  { transform: scaleY(1.4); }
+  90%  { transform: scaleY(1.4); }
   100% { transform: scaleY(1); }
+}
+
+.question.flash { animation: flashBg 0.35s ease; }
+
+@keyframes flashBg {
+  0%   { background-color: #fff; }
+  30%  { background-color: #c8f7c5; } /* zacht groen */
+  100% { background-color: #fff; }
+}
+
+.completion-message {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2e7d32;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.completion-message.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-10px);
 }
 
   </style>
@@ -127,7 +146,7 @@
 
 <body>
 
-<h2>Burn-out Vragenlijst</h2>
+<h1>Burn-out Vragenlijst</h1>
 
 <div class="tabs">
   <button class="tablink active" onclick="openTab(event, 'uitputting')">A. Emotionele Uitputting</button>
@@ -482,19 +501,22 @@ function updateProgress() {
   // tekst
   text.innerText = Math.round(percentage) + '%';
 
-  // kleurverandering
-if (percentage < 50) {
-  bar.style.background = '#f44336'; // rood
-} else if (percentage < 80) {
-  bar.style.background = '#FF9800'; // oranje
-} else {
-  bar.style.background = '#4CAF50'; // groen
-}
+  // kleur
+  if (percentage < 50) {
+    bar.style.background = '#f44336';
+  } else if (percentage < 90) {
+    bar.style.background = '#FF9800';
+  } else {
+    bar.style.background = '#4CAF50';
+  }
 
-  // 🎉 animatie bij 100%
-  if (percentage === 100) {
+  // animatie + melding
+  if (percentage >= 99.9) {
     bar.classList.add('complete');
     setTimeout(() => bar.classList.remove('complete'), 600);
+
+    const msg = document.getElementById('completionMessage');
+    msg.classList.add('show');
   }
 }
 
@@ -502,25 +524,28 @@ document.addEventListener('change', function(e) {
 
   if (!e.target.matches('.question input[type="radio"]')) return;
 
-  // ✅ update progress
+  // progress updaten
   updateProgress();
 
   const selectedRadio = e.target;
   const questionDiv = selectedRadio.closest('.question');
-  const form = selectedRadio.closest('form');
 
+  // flash effect
+  questionDiv.classList.add('flash');
+  setTimeout(() => questionDiv.classList.remove('flash'), 350);
+
+  const form = selectedRadio.closest('form');
   const allQuestions = Array.from(form.querySelectorAll('.question'));
   const idx = allQuestions.indexOf(questionDiv);
 
   let delay;
-
   if (idx < 2) delay = 1000;
   else if (idx < 4) delay = 600;
   else delay = 400;
 
   const nextQuestion = allQuestions[idx + 1];
 
-  // 👉 GEEN volgende vraag → volgende tab of einde
+  // 👉 laatste vraag → volgende tab
   if (!nextQuestion) {
 
     const currentTab = questionDiv.closest('.tab-content');
@@ -530,30 +555,31 @@ document.addEventListener('change', function(e) {
     const nextTab = allTabs[tabIndex + 1];
     const tabButtons = document.querySelectorAll('.tablink');
 
-    if (nextTab) {
+if (nextTab) {
 
-      allTabs.forEach(t => t.classList.remove('active'));
-      tabButtons.forEach(b => b.classList.remove('active'));
+  setTimeout(() => {
 
-      nextTab.classList.add('active');
-      tabButtons[tabIndex + 1].classList.add('active');
+    allTabs.forEach(t => t.classList.remove('active'));
+    tabButtons.forEach(b => b.classList.remove('active'));
 
-      setTimeout(() => {
-        const firstQuestion = nextTab.querySelector('.question');
-        if (firstQuestion) {
-          firstQuestion.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      }, 300);
+    nextTab.classList.add('active');
+    tabButtons[tabIndex + 1].classList.add('active');
 
-    } else {
-      setTimeout(() => {
-        calculateTotal();
-      }, 400);
+    const firstQuestion = nextTab.querySelector('.question');
+    if (firstQuestion) {
+      firstQuestion.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
     }
 
+  }, delay);
+
+    } else {
+setTimeout(() => {
+  calculateTotal();
+}, delay);
+ }
     return;
   }
 
@@ -573,6 +599,10 @@ document.addEventListener('change', function(e) {
   <div class="progress-bar" id="progressBar">
     <span id="progressText">0%</span>
   </div>
+</div>
+
+<div id="completionMessage" class="completion-message">
+  ✔ Alle vragen beantwoord - Zie de score 
 </div>
 
 </body>
