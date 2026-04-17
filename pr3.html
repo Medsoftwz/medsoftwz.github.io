@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 
-<!-- In de tabs-balk voeg je één regel toe:
-
-<button class="tablink" onclick="openTab(event, 'xwz')">E. X</button>
-
-de HTML van een bestaande sectie kopiëren, plakken en aanpassen bv. 6wz
-
--->
+<!-- Versie 20260417   -->
 
 <html lang="nl">
 <head>
@@ -433,7 +427,7 @@ function buildRadio(name, value, text) {
   </div>
 
   <div style="margin-bottom:10px;">
-    <label>Rijksregisternummer:</label><br>
+    <label>Geboortedatum:</label><br>
     <input type="text" id="patientRR" placeholder="xx.xx.xx-xxx.xx" style="padding:6px; width:200px;">
   </div>
 
@@ -671,7 +665,7 @@ function downloadTxt(){
   content += `Datum export: ${timestamp}\n`;
   if (consultDate) content += `Consultdatum: ${consultDate}\n`;
   if (patientName) content += `Patiënt: ${patientName}\n`;
-  if (patientRR)   content += `Rijksregisternummer: ${patientRR}\n`;
+  if (patientRR)   content += `Geboortedatum: ${patientRR}\n`;
 
   content += "\n----------------------------------------\n";
 content += "TOTAALRESULTAAT\n";
@@ -853,7 +847,7 @@ function buildPrintReport() {
     <h2>Rapport bijwerkingen – Prostaattherapie</h2>
     <p>
       Patiënt: <strong>${patient}</strong><br>
-      Rijksregisternummer:<strong>${rrn}</strong><br>
+      Geboortedatum:<strong>${rrn}</strong><br>
       Consultdatum: <strong>${consult}</strong>
     </p>
     <hr>
