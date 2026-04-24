@@ -5,25 +5,60 @@
 <title>Psychiatrisch Interview</title>
 
 <style>
-body { font-family: Arial; background:#f4f4f4; padding:20px;}
-h2 { text-align:center; color:#004080;}
+
+body { font-family: Arial; background:#f4f4f4; padding: 0px ;  margin: 0; }
+
+h1 { color: #2e7d32; font-size: 20px; font-weight: normal; margin-top: 0px; text-align: center; }
+h2 { color: #2e7d32; font-size: 16px; font-weight: normal; margin-top: 0px; margin-bottom: 5px; text-align: center;}
+h3 { color: #3a3a3a; font-size: 16px; }
 
 .tabs { display:flex; justify-content:center; flex-wrap:wrap; margin-bottom:10px;}
-.tabs button {
-  background:#468CD2; color:white; border:none; padding:10px; margin:5px; border-radius:6px;
-}
-.tabs button.active { background:#3BAF17;}
+.tabs button { background:#468CD2; color:white; border:none; padding:10px; margin:5px; border-radius:6px; }
+.tabs button.active { background:#3BAF17; }
 
-.tab-content { display:none; background:#fff; padding:20px; border-radius:10px;}
-.tab-content.active { display:block;}
+.tab-content { display:none; background:#fff; padding:20px; border-radius:10px; }
+.tab-content.active { display:block; }
 
 .question {
-  margin:10px 0;
-  padding:15px;
-  border-radius:10px;
+  margin: 2px 0;
+  padding: 6px 8px;
+  border-radius: 4px;
   background:#fff;
-  box-shadow:0 3px 8px rgba(0,0,0,0.2);
+  box-shadow:0 1px 3px rgba(0,0,0,0.12);
 }
+
+/* vraag */
+.q-text {
+  font-family: Verdana;
+  color: #002850;
+  font-size: 15px;
+  line-height: 1.25;
+  padding-left: 10px;
+  margin-bottom: 2px;   /* mini afstand */
+}
+
+/* opties container */
+.q-options {
+  font-family: Arial;
+  color: #2e7d32;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;             /* controle over spacing */
+  padding-left: 40px;   /* visuele hiërarchie */
+}
+
+/* de exacte vorm en compactheid van elke antwoordregel */
+.q-options label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1.3;
+  padding: 2px 0; 
+}
+
+/* radio */
+.q-options input[type="radio"] { margin: 0; }
 
 .question.active { border:2px solid #3BAF17;}
 .question.answered { opacity:0.6;}
@@ -31,11 +66,7 @@ h2 { text-align:center; color:#004080;}
 #progressContainer { background:#ddd; height:20px; border-radius:10px;}
 #progressBar { height:100%; width:0%; border-radius:10px;}
 
-button.eval {
-  display:block; margin:20px auto;
-  padding:12px 20px;
-  background:#999; color:white; border:none; border-radius:6px;
-}
+button.eval { display:block; margin:20px auto; padding:12px 20px; background:#999; color:white; border:none; border-radius:6px; }
 
 </style>
 </head>
@@ -49,7 +80,7 @@ button.eval {
   <button class="tablink" onclick="openTab(event,'B')">Stemming</button>
   <button class="tablink" onclick="openTab(event,'C')">Gedrag</button>
   <button class="tablink" onclick="openTab(event,'D')">Aandrift</button>
-  <button class="tablink" onclick="openTab(event,'E')">Attitude & functioneren</button>
+  <button class="tablink" onclick="openTab(event,'E')">Functioneren</button>
 </div>
 
 <div id="container"></div>
@@ -403,7 +434,7 @@ E: {
     {
       id: "q28",
       text: "E4. Hoe lukt het u om dagelijkse dingen te doen (ADL)",
-      alarm: "adl",
+      alarm: "ADL",
       options: [
         { label:"goed", score:0 },
         { label:"gaat nog", score:1 },
@@ -456,14 +487,17 @@ Object.entries(DOMAINS).forEach(([key, domain], di) => {
     const block = document.createElement("div");
     block.className = "question" + (qi===0 ? " active" : "");
 
-    block.innerHTML =
-      `<b>${q.text}</b><br>` +
-      q.options.map(o =>
-        `<label>
-          <input type="radio" name="${q.id}" value="${o.score}">
-          ${o.label}
-        </label><br>`
-      ).join("");
+block.innerHTML =
+  `<div class="q-text">${q.text}</div>` +
+
+  `<div class="q-options">` +
+    q.options.map(o =>
+      `<label>
+        <input type="radio" name="${q.id}" value="${o.score}">
+        ${o.label}
+      </label>`
+    ).join("") +
+  `</div>`;
 
     div.appendChild(block);
   });
@@ -575,10 +609,10 @@ const total = Object.values(DOMAINS)
   const bar = document.getElementById("progressBar");
   bar.style.width = pct+"%";
 
-  if(pct<25) bar.style.background="red";
-  else if(pct<50) bar.style.background="orange";
-  else if(pct<75) bar.style.background="gold";
-  else bar.style.background="green";
+  if(pct<30) bar.style.background="red";
+  else if(pct<80) bar.style.background="orange";
+  else if(pct<97) bar.style.background="Yellow";
+  else bar.style.background="lightgreen";
 }
 
 /* =========================
@@ -597,9 +631,22 @@ if(document.querySelectorAll("input:checked").length === total){
 }
 
 
+function buildPdfTitle(name, date){
+
+  let code = (name || "")
+    .replace(/[^a-zA-Z]/g, '')
+    .toUpperCase()
+    .substring(0, 4);
+
+  if (code.length < 4) code = code.padEnd(4, 'X');
+
+  return `Interview ${code} ${date}`;
+}
+
 /* =========================
    EVALUATIE
 ========================= */
+
 document.getElementById("evalBtn").onclick = function(){
 
   const scores={A:[],B:[],C:[],D:[],E:[]};
@@ -633,12 +680,30 @@ document.getElementById("evalBtn").onclick = function(){
     return a.reduce((x,y)=>x+y,0)/a.length;
   }
 
-function interpret(v){
-  if(v<0.5) return "geen";
-  if(v<1.5) return "licht";
-  if(v<2.5) return "matig";
-  return "ernstig";
-}
+  function interpret(v){
+    if(v<0.5) return "geen";
+    if(v<1.5) return "licht";
+    if(v<2.5) return "matig";
+    return "ernstig";
+  }
+
+  function formatDateEU(iso){
+    if(!iso) return "";
+    if(iso.includes("/")) return iso;
+    const [y,m,d] = iso.split("-");
+    return `${d}/${m}/${y}`;
+  }
+
+  function buildPdfTitle(name, date){
+    let code = (name || "")
+      .replace(/[^a-zA-Z]/g, '')
+      .toUpperCase()
+      .substring(0, 4);
+
+    if (code.length < 4) code = code.padEnd(4, 'X');
+
+    return `Interview ${code} ${date}`;
+  }
 
   const res = `
 COGNITIE: ${avg(scores.A).toFixed(1)} (${interpret(avg(scores.A))})
@@ -656,11 +721,32 @@ ${Object.keys(alarms).join(", ") || "geen"}
   w.document.write(`
   <html>
   <head>
-    <title>Evaluatie</title>
+    <title></title>
     <style>
-      body { font-family: Arial; padding:30px;}
-      textarea { width:100%; height:80px;}
-      .box { margin-bottom:15px;}
+
+      body {
+        font-family: Arial;
+        padding: 30px;
+        font-size: 16pt;
+        line-height: 1.6;
+      }
+
+      h2 { font-size: 22pt; }
+      h3 { font-size: 18pt; margin-top: 20px; }
+
+      .box { margin-bottom: 20px; }
+
+      pre {
+        font-size: 14pt;
+        white-space: pre-wrap;
+      }
+
+      @media print {
+        button { display: none; }
+
+        @page { margin: 20mm; }
+      }
+
     </style>
   </head>
   <body>
@@ -682,21 +768,35 @@ ${Object.keys(alarms).join(", ") || "geen"}
   <pre>${res}</pre>
 
   <h3>Antwoorden</h3>
-  <pre>${answers.join("\n\n")}</pre>
+<pre>${answers.join("\n\n")}</pre>
 
-<button onclick="window.print()">Opslaan als PDF</button>
+  <button onclick="window.print()">Opslaan als PDF</button>
+
   </body>
   </html>
   `);
+
   setTimeout(()=>{
-  const input = w.document.getElementById("datum");
-  if(input){
-    const today = new Date();
-    const iso = today.toISOString().split('T')[0];
-    input.value = iso;
-  }
-},100);
-  
+
+    const naam = w.document.getElementById("naam");
+    const datum = w.document.getElementById("datum");
+
+    // standaard datum vandaag (EU formaat)
+    const todayISO = new Date().toISOString().split('T')[0];
+    datum.value = formatDateEU(todayISO);
+
+    function updateTitle(){
+      const title = buildPdfTitle(naam.value, datum.value);
+      w.document.title = title;
+    }
+
+    updateTitle();
+
+    naam.addEventListener("input", updateTitle);
+    datum.addEventListener("input", updateTitle);
+
+  },100);
+
 };
 
 </script>
