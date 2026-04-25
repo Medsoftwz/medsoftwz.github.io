@@ -3,10 +3,11 @@
 <head>
 
 <meta charset="UTF-8">
- <meta property="og:title" content="Psychiatrisch Interview">
+ <meta property="og:title" content="Het Psychiatrisch Interview">
  <meta property="og:description" content="Experimentele versie – as‑is">
  <meta property="og:image" content="https://medsoftwz.github.io/images/psyview.jpg">
  <meta property="og:url" content="https://medsoftwz.github.io/psyview.html">
+ <meta property="og:type" content="website">
 
 <title>Psychiatrisch Interview</title>
 
@@ -188,7 +189,7 @@ B: {
       id: "q7",
       text: "B1. Heeft u zich de afgelopen twee weken vaak somber, neerslachtig of verdrietig gevoeld ?",
       options: [
-        { label:"nooit", score:0 },
+        { label:"neen", score:0 },
         { label:"soms", score:1 },
         { label:"vaak", score:2 },
         { label:"bijna dagelijks", score:3 }
@@ -262,7 +263,7 @@ C: {
       id: "q13",
       text: "C1. Merkt u dat u woorden of bewegingen van anderen herhaalt of dat u zichzelf herhaalt ?",
       options: [
-        { label:"nooit", score:0 },
+        { label:"neen", score:0 },
         { label:"soms", score:1 },
         { label:"vaak", score:2 },
         { label:"altijd", score:3 }
@@ -284,7 +285,7 @@ C: {
       id: "q15",
       text: "C3. Voelt u zich gedwongen bepaalde handelingen te herhalen om onrust of angst te verminderen ?",
       options: [
-        { label:"nooit", score:0 },
+        { label:"neen", score:0 },
         { label:"soms", score:1 },
         { label:"vaak", score:2 },
         { label:"altijd", score:3 }
@@ -317,8 +318,9 @@ C: {
     {
       id: "q18",
       text: "C6. Heeft u de laatste tijd impulsieve uitbarstingen gehad of risicogedrag vertoond ?",
+	  alarm: "mogelijk agressief",
       options: [
-        { label:"nooit", score:0 },
+        { label:"neen", score:0 },
         { label:"soms", score:1 },
         { label:"vaak", score:2 },
         { label:"altijd", score:3 }
@@ -699,76 +701,88 @@ document.getElementById("evalBtn").onclick = function(){
     return `Interview ${code} ${date}`;
   }
 
-  const res = `
+const res = `
 COGNITIE: ${avg(scores.A).toFixed(1)} (${interpret(avg(scores.A))})
 STEMMING: ${avg(scores.B).toFixed(1)} (${interpret(avg(scores.B))})
 GEDRAG: ${avg(scores.C).toFixed(1)} (${interpret(avg(scores.C))})
 AANDRIFT: ${avg(scores.D).toFixed(1)} (${interpret(avg(scores.D))})
 FUNCTIONEREN: ${avg(scores.E).toFixed(1)} (${interpret(avg(scores.E))})
-
-ALARMEN:
-${Object.keys(alarms).join(", ") || "geen"}
 `;
 
-  const w = window.open();
+const alarmText = Object.keys(alarms).join(", ") || "geen";
 
-  w.document.write(`
-  <html>
-  <head>
-    <title></title>
-    <style>
+const w = window.open();
 
-      body {
-        font-family: Arial;
-        padding: 30px;
-        font-size: 16pt;
-        line-height: 1.6;
-      }
+w.document.write(`
+<html>
+<head>
+<title></title>
 
-      h2 { font-size: 22pt; }
-      h3 { font-size: 18pt; margin-top: 20px; }
+<style>
+body { font-family: Arial; padding: 25px; font-size: 13pt; line-height: 1.4; }
 
-      .box { margin-bottom: 20px; }
+h2 { font-size: 16pt; margin-bottom: 10px; }
+h3 { font-size: 14pt; margin-top: 15px; margin-bottom: 5px; }
 
-      pre {
-        font-size: 14pt;
-        white-space: pre-wrap;
-      }
+.box { margin-bottom: 20px; }
 
-      @media print {
-        button { display: none; }
+.result { font-size: 13pt; }
+.alarm { color: red; font-weight: bold; margin-bottom: 10px; }
 
-        @page { margin: 20mm; }
-      }
+.answers { font-size: 12pt; line-height: 1.3; }
+.answers div { margin-bottom: 6px; }
 
-    </style>
-  </head>
-  <body>
+button {
+  display: block;
+  margin: 25px auto;
+  padding: 14px 24px;
+  font-size: 13pt;
+  background: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
 
-  <h2>Evaluatie psychiatrisch interview</h2>
+@media print { button { display:none; } }
 
-  <div class="box">
-    <label>Datum consult:</label><br>
-    <input id="datum"><br><br>
+</style>
+</head>
 
-    <label>Identiteit:</label><br>
-    <input id="naam"><br><br>
+<body>
 
-    <label>Geboortedatum:</label><br>
-    <input id="gb"><br>
-  </div>
+<h2>Evaluatie psychiatrisch interview</h2>
 
-  <h3>Resultaat</h3>
-  <pre>${res}</pre>
-  
-  <button onclick="window.print()">Opslaan als PDF</button>
+<div class="box">
+<label>Datum consult:</label><br>
+<input id="datum"><br><br>
 
-  <h3>Antwoorden</h3>
-<pre>${answers.join("\n\n")}</pre>
+<label>Identiteit:</label><br>
+<input id="naam"><br><br>
 
-  </body>
-  </html>
-  `);
+<label>Geboortedatum:</label><br>
+<input id="gb"><br>
+</div>
+
+<h3>Resultaat</h3>
+<div class="result">
+${res.split("\n").map(l => `<div>${l}</div>`).join("")}
+</div>
+
+<h3>Alarmen</h3>
+<div class="alarm">
+${alarmText}
+</div>
+
+<button onclick="window.print()">Opslaan als PDF</button>
+
+<h3>Antwoorden</h3>
+<div class="answers">
+${answers.map(a => `<div>${a.replace(/\\n/g,"<br>")}</div>`).join("")}
+</div>
+
+</body>
+</html>
+`);
 
   setTimeout(()=>{
 
