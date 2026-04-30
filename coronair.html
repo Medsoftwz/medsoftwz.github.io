@@ -178,6 +178,11 @@ body {
     </div>
 
     <div class="slide">
+      <img src="images/coro3.jpg">
+      <div class="caption">Projectie - PDA achterzijde hart & EKG</div>
+	  </div>
+
+    <div class="slide">
       <img src="images/coro5.jpg">
       <div class="caption">Projectie - persoonlijk bijgewerkt :-)</div>
 	  </div>
@@ -226,7 +231,6 @@ function updateCaption() {
   const caption = slides[index].querySelector(".caption");
   const base = caption.getAttribute("data-base") || caption.innerText;
   caption.setAttribute("data-base", base);
-
   caption.innerText = `Beeld ${index+1}/${slides.length} – ${base}`;
 }
 
@@ -240,7 +244,7 @@ function changeSlide(n) {
 let interval;
 document.getElementById("autoplayToggle").addEventListener("change", function () {
   if (this.checked) {
-    interval = setInterval(() => changeSlide(1), 3000);
+    interval = setInterval(() => changeSlide(1), 9000);
   } else {
     clearInterval(interval);
   }
