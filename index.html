@@ -1,86 +1,173 @@
 <!DOCTYPE html>
 <html lang="nl">
-
-<!-- Versie 20260425  -->
-
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta property="og:title" content="HTML & Code">
-<meta property="og:description" content="Experimentele versie – as‑is">
-<meta property="og:image" content="https://medsoftwz.github.io/images/index.jpg">
-<meta property="og:url" content="https://medsoftwz.github.io/">
-<meta property="og:type" content="website">
-
 <title>Medische HTML & Code</title>
 
 <style>
 
-body { font-family: "Verdana, Segoe UI", Arial, sans-serif; color: #002850; margin: 0; font-weight: normal;}
-
-body {
-  background-color: #E1FFFF;
-
-  background-image:
-    /* dikke lijnen (major grid) */
-    linear-gradient(0deg, rgba(0,0,0,0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px),
-
-    /* dunne lijnen (minor grid) */
-    linear-gradient(0deg, rgba(0,0,0,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
-
-  background-size:
-    80px 80px,   /* major grid */
-    80px 80px,
-    10px 10px,   /* minor grid */
-    10px 10px;
- }
-
-/* TITELS */
-h1 { color: #2e7d32; font-size: 20px; font-weight: normal; margin-top: 0px; text-align: center; }
-h2 { color: #2e7d32; font-size: 18px; font-weight: normal; margin-top: 0px; margin-bottom: 0px;}
-h3 { color: #3a3a3a; font-size: 16px;  }
-	
-/* SECTIONS */
-.section {
-    width: 92%;
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 18px;
-    background: #FFFFFF;
-    border-radius: 10px;
-    border: 1px solid #d0d7de;
-  
-/* subtiel baksteen/patroon effect */
-    background-image: linear-gradient( 0deg, rgba(0,0,0,0.09) 20px, transparent 0px),
-    linear-gradient( 90deg, rgba(0,0,0,0.09) 1px, transparent 1px);
-    background-size: 20px 20px;
-	box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
-	
-/* KOLOMMEN */
-.columns { display: flex; gap: 30px; flex-wrap: wrap; }
-.column { flex: 1; min-width: 260px; }
-
-/* LIJSTEN */
-ul { list-style: square; padding-left: 1; }
-li { margin-bottom: 8px; }
-
-/* LINKS */
-a {
-    color: #0080C0;
-    text-decoration: underline;
-    font-weight: 500;
-    position: relative;
-    transition: all 0.2s ease;
+:root {
+  --bg: #f1f5f9;
+  --card: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
 }
 
-/* hover met pijltje */
+/* ===== BASIS ===== */
 
-a::after { content: "→"; opacity: 0; margin-left: 5px; transition: opacity 0.2s ease, transform 0.2s ease; transform: translateX(-3px); }
-a:hover { color: #FF40FF; }
-a:hover::after { opacity: 1; transform: translateX(0); }
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 14.5px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ===== HEADER ===== */
+
+.header {
+  padding: 8px 14px 6px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  background: var(--card);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 18px;
+  color: #2563eb;
+}
+
+.header p {
+  margin: 2px 0 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ===== SEARCH ===== */
+
+.search {
+  width: 100%;
+  padding: 6px 8px;
+  font-size: 13px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+}
+
+/* ===== LAYOUT ===== */
+
+.container {
+  max-width: 1000px;
+  margin: 8px auto;
+  padding: 0 10px;
+}
+
+/* ===== SECTION ===== */
+
+.section { margin-bottom: 12px; }
+
+.section-title { font-size: 14px; font-weight: 600; margin: 6px 2px; }
+
+/* kleuraccent per sectie */
+
+.section.blue .section-title { color: #2563eb; }
+.section.green .section-title { color: #059669; }
+.section.purple .section-title { color: #7c3aed; }
+.section.bruin .section-title { color: #502828; }
+
+/* ===== GRID ===== */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+}
+
+/* ===== CARD ===== */
+
+.card {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 8px 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  transition: all 0.15s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.10);
+}
+
+/* ===== LINKS ===== */
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px;
+  border-radius: 6px;
+
+  /* 👇 BELANGRIJK */
+  color: #2563eb;      
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(0,0,0,0.3);
+
+  transition: all 0.15s ease;
+}
+
+/* hover = duidelijk interactief */
+
+.link:hover {
+  color: #800080;
+  text-decoration-color: #2563eb;
+  background: rgba(37,99,235,0.06);
+}
+
+/* icoon */
+
+.link .icon {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* ===== FOOTER ===== */
+
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  padding: 6px 0 12px;
+}
+
+.footer a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+/* ===== DARK MODE ===== */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+  }
+
+  .link:hover {
+    background: rgba(96,165,250,0.15);
+    color: #60a5fa;
+  }
+
+  .header {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+}
 
 </style>
 
@@ -88,127 +175,29 @@ a:hover::after { opacity: 1; transform: translateX(0); }
 
 <body>
 
-<h1>Medische HTML & Code</h1>
+<div class="header">
+  <h1>Medische HTML & Code</h1>
+  <p>Ziektebeelden – Diagnosen – Therapie – Classificatie – Vragenlijsten</p>
+  <input class="search" id="search" placeholder="Zoek...">
+</div>
 
-<p style="text-align:center; color:#666;"> Ziektebeelden – Diagnosen – Therapie – Classificatie - Vragenlijsten</p>
+<div class="container">
 
 <!-- ===================== -->
-<div class="section">
-<h2>Medische vragenlijsten</h2>
 
-<div class="columns">
+<div class="section bruin">
+<div class="section-title">🩺 Medische vragenlijsten</div>
 
-<div class="column">
-<ul>
-<li><a href="pr1.html">Vragenlijst mictieklachten</a></li>
-<li><a href="pr3.html">Vragenlijst bijwerkingen radiotherapie prostaat</a></li>
-</ul>
+<div class="grid">
+
+<div class="card">
+<a class="link" href="pr1.html"><span class="icon">📄</span>Vragenlijst Mictieklachten</a>
+<a class="link" href="pr3.html"><span class="icon">📄</span>Radiotherapie prostaat bijwerkingen</a>
 </div>
 
-<div class="column">
-<ul>
-<li><a href="mmse.html">Vragenlijst neurocognitief - mmse</a></li>
-<li><a href="burnout.html">Vragenlijst burn-out</a></li>
-
-</ul>
-</div>
-
-</div>
-</div>
-
-<!-- =====================
-
-<div class="section">
-<h2>Ziektebeelden</h2>
-
-<div class="columns">
-<div class="column">
-<ul>
-<li><a href="B1.htm">B1</a></li>
-
-</ul>
-</div>
-
-<div class="column">
-<ul>
-<li><a href="B11.htm">B11</a></li>
-</ul>
-</div>
-
-</div>
-</div>
-
--->
-<!-- ===================== 
-<div class="section">
-<h2>Differentiële diagnosen</h2>
-
-<ul>
-<li><a href="C1.htm">C1</a></li>
-
-</ul>
-
-</div>
-
--->
-
-<!-- =====================
-<div class="section">
-<h2>Diagnose</h2>
-
-<ul>
-<li><a href="D1.htm">D1</a></li>
-
-</ul>
-
-</div>
-
--->
-<!-- ===================== -->
-<div class="section">
-<h2>Classificatie</h2>
-
-<div class="columns">
-
-<div class="column">
-<ul>
-<li><a href="psytree.html">Classificatie Psychiatrie</a></li>
-</ul>
-</div>
-
-<div class="column">
-<ul>
-<li><a href="psyview.html">Het psychiatrisch Interview</a></li>
-</ul>
-</div>
-
-<div class="column">
-<ul>
-<li><a href="diatree.html">Classificatie Ziekten</a></li>
-<li><a href="https://icd.who.int/browse/2025-01/mms/en" target="_blank" rel="noopener noreferrer">ICD-11 Browser</a></li>
-<li><a href="https://icd.who.int/ct/icd11_mms/en/2025-01" target="_blank" rel="noopener noreferrer">ICD-11 Coding Tool</a></li>
-</ul>
-</div>
-
-</div>
-</div>
-
-<!-- ===================== -->
-<div class="section">
-<h2>Info</h2>
-
-<div class="columns">
-
-<div class="column">
-<ul>
-<li><a href="coronair.html">Anatomie coronaire arteries</a></li>
-</ul>
-</div>
-
-<div class="column">
-<ul>
-<li><a href="levenseinde.html">Zorg levenseinde</a></li>
-</ul>
+<div class="card">
+<a class="link" href="mmse.html"><span class="icon">🧠</span>Vragenlijst Neurocognitieve Functies - MMSE</a>
+<a class="link" href="burnout.html"><span class="icon">🔥</span>Vragenlijst Burn-out</a>
 </div>
 
 </div>
@@ -216,25 +205,80 @@ a:hover::after { opacity: 1; transform: translateX(0); }
 
 <!-- ===================== -->
 
-<div class="section" style="text-align:center;">
-<p><a href="mailto:xyz21@skynet.be">E-postadres</a></p>
-<p><a href="disclaim.html">Disclaimer</a></p>
+<div class="section green">
+<div class="section-title">🧠 Classificatie</div>
+
+<div class="grid">
+
+<div class="card">
+<a class="link" href="psytree.html"><span class="icon">🌿</span>Psychiatrie Terminologie Classificatie</a>
+<a class="link" href="psyview.html"><span class="icon">💬</span>Het Psychiatrisch Interview</a>
+</div>
+
+<div class="card">
+<a class="link" href="diatree.html"><span class="icon">🧬</span>Diagnostische Terminologie Classificatie</a>
+<a class="link" href="https://icd.who.int/browse/2025-01/mms/en" target="_blank"><span class="icon">🌍</span>ICD-11 Browser</a>
+<a class="link" href="https://icd.who.int/ct/icd11_mms/en/2025-01" target="_blank"><span class="icon">🛠</span>ICD Tool</a>
+</div>
+
+</div>
+</div>
+
+<!-- ===================== -->
+
+<div class="section purple">
+<div class="section-title">📚 Info</div>
+
+<div class="grid">
+
+<div class="card">
+<a class="link" href="coronair.html"><span class="icon">❤️</span>Anatomie Coronaire arteries</a>
+</div>
+
+<div class="card">
+<a class="link" href="levenseinde.html"><span class="icon">⚖️</span>Info Levenseinde zorg</a>
+</div>
+
+</div>
+</div>
+
+<!-- ===================== -->
+
+<div class="footer">
+<a href="mailto:xyz21@skynet.be">E-postadres</a> |
+<a href="disclaim.html">Disclaimer</a>
+</div>
+
 </div>
 
 <script>
-document.querySelectorAll("a").forEach(link => {
-    const href = link.getAttribute("href");
 
-    if (!href) return;
+/* ===== MINI SEARCH FILTER ===== */
 
-    // Zowel .htm als .html
-    if (href.endsWith(".htm") || href.endsWith(".html")) {
-        link.setAttribute("target", "_blank");
-        link.setAttribute("rel", "noopener noreferrer");
-    }
+const search = document.getElementById("search");
+
+search.addEventListener("input", () => {
+  const term = search.value.toLowerCase();
+
+  document.querySelectorAll(".link").forEach(link => {
+    const text = link.textContent.toLowerCase();
+    link.style.display = text.includes(term) ? "flex" : "none";
+  });
 });
-</script>
 
+/* open html in nieuw tab */
+
+document.querySelectorAll("a").forEach(link => {
+  const href = link.getAttribute("href");
+  if (!href) return;
+
+  if (href.endsWith(".htm") || href.endsWith(".html")) {
+    link.setAttribute("target", "_blank");
+    link.setAttribute("rel", "noopener noreferrer");
+  }
+});
+
+</script>
 
 </body>
 </html>
