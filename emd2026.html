@@ -58,17 +58,17 @@ li{ margin:0px 0; }
 /* Afbeelding */
 
 .foto {
-  width: 90%;
+  width: 100%;
   max-width: 1200px;
   display: block;
-  margin: 0 auto 25px auto;
+  margin: 0 auto 0px auto;
   transform: scale(1);
   transition: transform 0.05s linear;
   cursor: zoom-in;
   user-select: none;
 }
 
-.fotokader { margin: 25px 0; }
+.fotokader { margin: 2px 0; }
 .foto.actief {
     outline: 3px solid #2563eb;
     outline-offset: 3px;
@@ -205,7 +205,6 @@ De gestandaardiseerde gegevens kunnen vervolgens worden hergebruikt
 </p>
 </div>
 
-
 <h3>2. Het geneesmiddelenvoorschrift in een elektronisch medisch dossier</h3>
 
 <p>
@@ -278,6 +277,9 @@ De kwaliteit van het samengevat elektronisch gezondheidsdossier staat of valt me
     <div id="popupText"></div>
   </div>
 </div>
+
+<div class="fotokader"><img class="foto" src="images/emd2026.jpg"></div>
+<hr>
 
 </body>
 
@@ -392,7 +394,7 @@ fotos.forEach(foto => {
         else
             scale *= 0.95;
 
-        scale = Math.max(0.5, Math.min(2.0, scale));
+        scale = Math.max(0.5, Math.min(2.5, scale));
 
         foto.dataset.scale = scale;
         foto.style.transform = `scale(${scale})`;
@@ -447,5 +449,7 @@ document.querySelectorAll("a").forEach(link => {
 });
 
 </script>
+
+
 </body>
 </html>
