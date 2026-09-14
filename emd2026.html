@@ -24,7 +24,7 @@
 body {
   
   font-family: "Verdana", Arial, sans-serif;
-  font-size: 16px;
+  font-size: 17px;
   color: #002850; 
   font-weight: normal;
 
@@ -112,7 +112,7 @@ li{ margin:0px 0; }
 
 .highlight {
     font-family: Verdana, sans-serif;
-    font-size: 16px;
+    font-size: 17px;
     font-weight: normal;
 	color: #502828;
     background: #eef5fb;
@@ -171,8 +171,8 @@ li{ margin:0px 0; }
     box-shadow:0 0 15px rgba(0,0,0,.4);
 }
 .popup-title{
-    font-size:17px;
-    font-weight:bold;
+    font-size:16px;
+    font-weight:normal;
     color:#2563eb;
     margin:4px 0 12px 0;
 }
@@ -258,7 +258,8 @@ Een Sumehr moet automatisch en actueel worden gegenereerd uit de gestructureerde
 
 <div class="highlight">
 <p>
-De kwaliteit van het samengevat elektronisch gezondheidsdossier staat of valt met de bronregistratie: gestructureerde registratie via SNOMED CT en de gestandaardiseerde geneesmiddelenstructuur - ondersteund door beslissingshulp, AI en automatische controles - vormt de basis voor een betrouwbare, actuele en machineleesbare Sumehr.<br>Zonder goede bronregistratie, geen goede Sumehr.
+De kwaliteit van het samengevat elektronisch gezondheidsdossier staat of valt met de bronregistratie.<br>
+De gestructureerde registratie via SNOMED CT en via de gestandaardiseerde geneesmiddelenstructuur - ondersteund door beslissingshulp, AI en automatische controles - vormt de basis voor een betrouwbare, actuele en machineleesbare Sumehr.<br>Zonder goede bronregistratie, geen goede Sumehr.
 </p>
 </div>
 
@@ -292,19 +293,26 @@ De kwaliteit van het samengevat elektronisch gezondheidsdossier staat of valt me
 const popupContent = {
     ampvmp: `
         <div class="popup-title">AMP / VMP</div>
-
-        <p>
-            <strong>AMP (Actual Medicinal Product)</strong><br>
+        <p><strong>AMP (Actual Medicinal Product)</strong><br>
             Het concrete geneesmiddel dat aan de patiënt wordt voorgeschreven of afgeleverd.
         </p>
-
         <p>
             <strong>VMP (Virtual Medicinal Product)</strong><br>
             De gestandaardiseerde geneesmiddelenvariant, beschreven aan de hand van
             de werkzame stof, sterkte en toedieningsvorm.
         </p>
     `,
-
+	
+    sam: `
+    <div class="popup-title">SAM (source authentique des médicaments)</div>	
+	<p>Het Belgische systeem voor gestandaardiseerde geneesmiddeleninformatie.</p>
+    `,
+	
+	inn: `
+    <div class="popup-title">INN - International Nonproprietary Name</div>	
+	<p>De internationale generieke naam of stofnaam</p>
+    `,
+		
     ai: `
         <div class="popup-title">Gebruik van AI</div>
 
