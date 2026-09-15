@@ -23,11 +23,11 @@
 
 body {
   
-  font-family: "Verdana", Arial, sans-serif;
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  font-weight: 500;
   font-size: 17px;
-  color: #002850; 
-  font-weight: normal;
-
+  color: #295d93;	  
+  
   padding: 0px 10px 0px 20px;  /* Clockwise: top (0), right (10px), bottom (0), left (20px)  - rand binnen element */
   margin-top: 0px 10px 0px 10px;  /* Clockwise: top (0), right (10px), bottom (0), left (20px) - rand buiten element */
 
@@ -111,9 +111,12 @@ li{ margin:0px 0; }
 /* Highlight */
 
 .highlight {
-    font-family: Verdana, sans-serif;
-    font-size: 17px;
-    font-weight: normal;
+  
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  color: #295d93;	 
+
 	color: #502828;
     background: #eef5fb;
     padding: 12px;
@@ -124,7 +127,7 @@ li{ margin:0px 0; }
 	.kleuren-lijst p {
 		margin: 0;
 		padding: 2px 0;
-		font-family: monospace; /* Maakt kleurcodes makkelijker leesbaar */
+		font-family: monospace; 
 		font-size: 16px;
 	}
 
@@ -138,7 +141,7 @@ li{ margin:0px 0; }
 		padding: 15px;                   /* Zorgt voor ademruimte tussen de tekst en de rand */
 		box-sizing: border-box;    /* voorkomt dat padding de box breder maakt dan 80% */
 
-		text-align: center;          /* Verander naar 'right' voor rechts uitlijnen */		
+		text-align: center;  
 		color: #333333; 
 	    background-color: #f9f9f9; 
 	}
@@ -160,7 +163,7 @@ li{ margin:0px 0; }
     font-family: Arial, sans-serif;
     font-size: 15px;
     font-weight: normal;
-	color: #808080;
+	color: #005050;
     text-align: justify;
     background:#fff;
     width:800px;
@@ -192,7 +195,7 @@ De kwaliteit van een EMD wordt anno 2026 niet zozeer bepaald door de mogelijkhei
 <h3>1. Registratie van diagnosen en verrichtingen in het EMD.</h3>
 
 <p>
-De arts registreert in vrije tekst of via dictatie, waarna het EMD de informatie automatisch kan vertalen naar gestructureerde en aan SNOMED CT gekoppelde gegevens.	
+De arts registreert in vrije tekst of via dictatie, waarna het EMD de informatie automatisch kan vertalen naar gestructureerde en aan <a href="#" onclick="openPopup('snomed'); return false;">SNOMED CT gekoppelde gegevens.</a>
 </p>
 
 <div class="highlight">
@@ -227,14 +230,12 @@ Zo kunnen verschillende merken, generieken en verpakkingen
 <h3>3. Klinische beslissingsondersteuning in het EMD</h3>
 
 <p>
-Een modern EMD moet patiëntgegevens niet alleen registreren maar ze ook actief gebruiken voor klinische beslissingsondersteuning. Op basis van gestructureerde en gestandaardiseerde gegevens moet het onder meer kunnen waarschuwen 
+Een modern EMD moet patiëntgegevens niet alleen registreren maar ze ook actief gebruiken voor klinische beslissingsondersteuning.<br> Op basis van gestructureerde en gestandaardiseerde gegevens moet het onder meer kunnen waarschuwen 
 
 <ul>
 <li>voor geneesmiddeleninteracties, contra-indicaties, allergieën en dubbele medicatie</li> 
 </ul>
-
 en de arts ondersteunen met 
-
 <ul>
 <li>richtlijnen, beslissingsbomen, diagnostische algoritmen, gestandariseede vragenlijsten, preventieve zorg, screening, vaccinatie en opvolging.</li>
 </ul>
@@ -264,7 +265,6 @@ De gestructureerde registratie via SNOMED CT en via de gestandaardiseerde genees
 </div>
 
 <hr>	
-
 
 <div class="footer">
     <a href="mailto:xyz21@skynet.be">E-postadres</a> |
@@ -306,6 +306,25 @@ const popupContent = {
     sam: `
     <div class="popup-title">SAM (source authentique des médicaments)</div>	
 	<p>Het Belgische systeem voor gestandaardiseerde geneesmiddeleninformatie.</p>
+    `,
+
+    snomed: `
+    <div class="popup-title">SNOMED CT</div>	
+
+<p>
+SNOMED CT is een internationale, gestandaardiseerde medische
+terminologie waarmee klinische begrippen eenduidig en gestructureerd kunnen
+worden vastgelegd. Daardoor kunnen gegevens in verschillende EMD's en
+zorginstellingen op dezelfde manier worden geïnterpreteerd en hergebruikt.
+</p>
+
+<p>
+De Belgische ambitie is groot, maar de integratie verloopt moeizaam. Volgens een enquête in 16 ziekenhuizen kende meer dan 95% van de clinici SNOMED CT niet en was meer dan twee derde van de instellingen nog niet gestart met de implementatie.
+</p>
+
+<p>
+<a href="https://www.despecialist.eu/nl/nieuws/e-health/bihr-belgie-wil-een-einde-maken-aan-de-chaos-op-het-gebied-van-gezondheidsgegevens.html" class="link">De kritiek richt zich</a> niet zozeer op SNOMED CT zelf maar op de trage en versnipperde invoering: artsen registreren nog vaak in vrije tekst, software ondersteunt interoperabiliteit onvoldoende en gestructureerde registratie levert in de dagelijkse praktijk nog te weinig directe meerwaarde.
+</p>
     `,
 	
 	inn: `
@@ -439,7 +458,7 @@ document.addEventListener("keydown", function(e) {
         return;
     }
 
-    scale = Math.max(0.5, Math.min(2.0, scale));
+    scale = Math.max(0.5, Math.min(2.5, scale));
 
     actieveFoto.dataset.scale = scale;
     actieveFoto.style.transform = `scale(${scale})`;
@@ -457,7 +476,6 @@ document.querySelectorAll("a").forEach(link => {
 });
 
 </script>
-
 
 </body>
 </html>
