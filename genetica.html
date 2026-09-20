@@ -6,13 +6,13 @@
 
 <meta property="og:locale" content="nl_BE">
 <meta property="og:title" content="Genetica">
-<meta property="og:description" content="Experimentele versie – as-is">
+<meta property="og:description" content="Chromosomen - DNA - Genen - Eiwitten - Mutaties">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://medsoftwz.github.io/genetica.html">
 <meta property="og:image" content="https://medsoftwz.github.io/images/genetica.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:type" content="image/jpg">
 <meta name="twitter:card" content="summary_large_image">
 
 <title>Genetica in een notendop</title>
@@ -21,12 +21,12 @@
 body {
     font-family: "Segoe UI", Arial, Helvetica, sans-serif;
     font-weight: 500;
-	font-size: 18px;
-    color: #003366;	
+	font-size: 16px;
+    color: #295d93;	
     line-height: 1.5;
     background-image: url('images/wzcranum.jpg');
     background-attachment: fixed;
-	text-align: left;
+	text-align: justify;
     max-width: none;
     margin: 0;
     padding: 20px;
@@ -34,30 +34,43 @@ body {
 
 h1 {
     text-align: center;
-    font-size: 20px;
-    margin-bottom: 10px;
+    font-size: 16px;
+    margin: 0px 20px 10px 10px;
 }
 
-h2 {
-    font-size: 18px;
-    margin-bottom: 5px;
-    color: hsl(144, 28%, 40%);
+h2 { 
+  margin: 0px; 
+  font-size: 17px; 
+  font-weight: 600; 
+  color: #008000; 
+  text-align: left; 
+  background-color: #FFFF00;;
+  padding: 0px 12px; /* geeft wat ademruimte rondom de tekst */
 }
 
-p { margin: 6px 0; }
+h3 { margin: 5px; font-size: 16px; font-weight: 500; color: #808080; text-align: left; }
+h3 span {
+  background-color: #ffeb3b; /* Zachte gele markeerkleur */
+  padding: 2px 6px; /* Zorgt dat de markering mooi om de letters sluit */
+  border-radius: 3px; /* Optioneel: maakt de hoekjes van de markering wat ronder */
+}
+
+p { margin: 0px 20px 20px 10px; }
+
+ul { margin: 0px 0px 0px 0px; }
+ol { margin: 2px 0px 4px 15px; }
+li { margin: 2px 0px 2px 0px; padding: 0px 0px 0px 5px; }
 
 .highlight {
     background: #eef5fb;
     padding: 12px;
     border-left: 5px solid #3b82f6;
-    margin: 15px 0;
+    margin: 0px 20px 10px 10px;
 }
 
 /* Afbeelding */
-.dna-container {
-    text-align: center;
-    margin: 25px 0;
-}
+
+.dna-container { text-align: center; margin: 10px 20px 10px 10px; }
 
 .dna-img {
     width: 100%;
@@ -68,9 +81,7 @@ p { margin: 6px 0; }
     cursor: zoom-in;
 }
 
-.dna-img:hover {
-    transform: scale(1.02);
-}
+.dna-img:hover { transform: scale(1.02); }
 
 /* Lightbox */
 .lightbox {
@@ -92,9 +103,7 @@ p { margin: 6px 0; }
     border-radius: 10px;
 }
 
-.lightbox:target {
-    display: flex;
-}
+.lightbox:target {display: flex;}
 
 .caption {
     text-align: center;
@@ -114,9 +123,9 @@ p { margin: 6px 0; }
 <p>
 Een chromosoom bestaat uit DNA.<br>
 DNA is opgebouwd uit nucleotiden.<br>
-DNA bestaat uit twee strengen die om elkaar heen draaien in een dubbele helix.<br> De strengen zijn opgebouwd uit nucleotiden, die elk bestaan uit een fosfaatgroep, 
-suiker (deoxyribose) en een stikstofbase (A, T, C of G).
-<br>De volgorde van deze basen vormt de genetische informatie.
+DNA bestaat uit twee strengen die om elkaar heen draaien in een dubbele helix.<br> 
+De strengen zijn opgebouwd uit nucleotiden, die elk bestaan uit een fosfaatgroep, suiker (deoxyribose) en een stikstofbase (A, T, C of G).<br>
+De volgorde van deze basen vormt de genetische informatie.
 </p>
 
 <div class="dna-container">
@@ -137,36 +146,86 @@ suiker (deoxyribose) en een stikstofbase (A, T, C of G).
 Een gen is een afgebakende sequentie van nucleotiden die codeert voor een functioneel product, meestal een eiwit.
 </p>
 
+<div class="highlight">
+<strong>Kerninzicht:</strong>
+Een gen is een exacte code voor een concreet eiwit met een gekende structuur.
+</div>
+
 <h2>Van DNA naar eiwit</h2>
 <p>
-Bij transcriptie wordt DNA omgezet in mRNA. 
+Bij transcriptie wordt DNA omgezet in mRNA. <br>Dit mRNA dient vervolgens als boodschapper en reist naar het cytoplasma om de aanmaak van eiwitten (translatie) mogelijk te maken.<br>
 Bij translatie leest het ribosoom het mRNA in codons (3 nucleotiden → 1 aminozuur).<br>
+<div class="highlight">
 Het resultaat is een eiwit: een keten van aminozuren waarvan de volgorde bepaald wordt door het gen.
+</div>
 </p>
 
 <h2>Eiwitten</h2>
 <p>
+Een eiwit is een lange keten van aan elkaar gekoppelde aminozuren. Er zijn 20 verschillende soorten aminozuren. Je kunt ze zien als de letters van een alfabet. De specifieke volgorde van deze letters bepaalt welk eiwit er gemaakt wordt.</p>
+<div class="highlight">
 Eiwitten hebben een specifieke lengte en aminozuurvolgorde.<br>
 Elke letter in de sequentie stelt één aminozuur voor.<br>
 Bijvoorbeeld: het PTEN-eiwit bevat 403 aminozuren.
-</p>
-
-<div class="highlight">
-<strong>Kerninzicht:</strong><br>
-Een gen is een exacte code voor een concreet eiwit met een gekende structuur.
 </div>
 
 <h2>Mutaties</h2>
 <p>
 Een mutatie is een verandering in het DNA, bijvoorbeeld een substitutie of deletie.<br>
 Dit kan een codon wijzigen en daardoor kan een aminozuur in het eiwit veranderen.<br>
-Voorbeeld: c.149T&gt;A : één nucleotide verandert → p.Ile50Asn : één aminozuur verandert. Hierdoor is er verandering in het PTEN eiwit waardoor de werking van dat eiwit gestoord kan zijn.
+Voorbeeld: c.149T&gt;A : één nucleotide is veranderd → p.Ile50Asn : één aminozuur verandert. Hierdoor is er verandering in het PTEN eiwit waardoor de werking van dat eiwit gestoord kan zijn.
 </p>
 
 <div class="highlight">
-<strong>Essentie:</strong><br>
+<strong>Essentie:</strong>
+
 De mutatie ontstaat in het DNA, maar het effect treedt op in het eiwit.
 </div>
+
+<h2>Omics en Genomica</h2>
+
+ Omics verwijst naar een verzameling vakgebieden in de moleculaire biologie die zich richten op de globale en integrale studie van alle moleculen van een bepaald type in een levend organisme. 
+ <ul>
+ <li>Genomics: De studie van het volledige erfelijkheidsmateriaal (het genoom of DNA).
+ <li>Proteomics: De studie van alle eiwitten (proteoom) in een cel of weefsel.
+ <li>Metabolomics: De studie van alle stofwisselingsproducten (metaboloom).
+ <li>Transcriptomics: De studie van al het RNA dat wordt afgelezen (transcriptoom).
+ </ul>
+ 
+ <div style="overflow-x: auto;">
+  <table style="width: 100%; border-collapse: collapse; font-family: sans-serif; margin: 20px 0; font-size: 16px; text-align: left; border: 1px solid #ddd;">
+    <thead>
+      <tr style="background-color: #f2f2f2; border-bottom: 2px solid #ddd;">
+        <th style="padding: 12px; font-weight: bold;">Kenmerk</th>
+        <th style="padding: 12px; font-weight: bold;">Genetica (Genetics)</th>
+        <th style="padding: 12px; font-weight: bold;">Genomica (Genomics)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom: 1px solid #ddd;">
+        <td style="padding: 12px; font-weight: bold; background-color: #fafafa; width: 20%;">Definitie</td>
+        <td style="padding: 12px;">De studie van erfelijkheid en de werking van afzonderlijke genen.</td>
+        <td style="padding: 12px;">De studie van het volledige genoom (al het DNA) en hoe genen onderling samenwerken.</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #ddd;">
+        <td style="padding: 12px; font-weight: bold; background-color: #fafafa;">Focus</td>
+        <td style="padding: 12px;">Hoe specifieke eigenschappen of afwijkingen overgaan van ouder op kind.</td>
+        <td style="padding: 12px;">De structuur, functie, evolutie en interactie van alle genen en niet-coderend DNA.</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #ddd;">
+        <td style="padding: 12px; font-weight: bold; background-color: #fafafa;">Onderzoeksmethode</td>
+        <td style="padding: 12px;">Gericht op één of een klein aantal genen tegelijk (bijv. het gen voor de oogkleur of Huntington).</td>
+        <td style="padding: 12px;">Gericht op grootschalige data-analyse (high-throughput sequencing) van miljarden DNA-bouwstenen tegelijk.</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #ddd;">
+        <td style="padding: 12px; font-weight: bold; background-color: #fafafa;">Medische toepassing</td>
+        <td style="padding: 12px;">Diagnose van monogene aandoeningen (ziekten veroorzaakt door één defect gen, zoals taaislijmziekte).</td>
+        <td style="padding: 12px;">Onderzoek naar complexe ziekten (zoals hart- en vaatziekten, diabetes of kanker) waarbij honderden genen en omgevingsfactoren een rol spelen.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<hr>
 
 <script>
 document.addEventListener('keydown', function(e) {
