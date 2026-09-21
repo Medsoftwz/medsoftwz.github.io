@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <meta property="og:locale" content="nl_BE">
-<meta property="og:title" content="Genetica">
-<meta property="og:description" content="Chromosomen - DNA - Genen - Eiwitten - Mutaties">
+<meta property="og:title" content="Genetica - Genomica">
+<meta property="og:description" content="Chromosomen - DNA - Genen - Eiwitten - Mutaties - Genoom">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://medsoftwz.github.io/genetica.html">
 <meta property="og:image" content="https://medsoftwz.github.io/images/genetica.jpg">
@@ -24,7 +24,7 @@ body {
 	font-size: 16px;
     color: #295d93;	
     line-height: 1.5;
-    background-image: url('images/wzcranum.jpg');
+    background-image: url('images/wzbakste.jpg');
     background-attachment: fixed;
 	text-align: justify;
     max-width: none;
@@ -55,11 +55,11 @@ h3 span {
   border-radius: 3px; /* Optioneel: maakt de hoekjes van de markering wat ronder */
 }
 
-p { margin: 0px 20px 20px 10px; }
+p { margin: 0px 0px 2px 10px; }
 
-ul { margin: 0px 0px 0px 0px; }
+ul { margin: 0px 0px 10px 0px; }
 ol { margin: 2px 0px 4px 15px; }
-li { margin: 2px 0px 2px 0px; padding: 0px 0px 0px 5px; }
+li { margin: 2px 0px 2px 0px; padding: 0px 0px 0px 2px; }
 
 .highlight {
     background: #eef5fb;
@@ -112,27 +112,50 @@ li { margin: 2px 0px 2px 0px; padding: 0px 0px 0px 5px; }
     margin-top: 8px;
 }
 
+/* Afbeelding */
+
+.foto {
+  width: 90%;
+  max-width: 1200px;
+  display: block;
+  margin: 0 auto 25px auto;
+  transform: scale(1);
+  transition: transform 0.05s linear;
+  cursor: zoom-in;
+  user-select: none;
+}
+
+.fotokader { margin: 25px 0; }
+.foto.actief {
+    outline: 3px solid #2563eb;
+    outline-offset: 3px;
+    box-shadow: 0 0 12px rgba(37,99,235,0.35);
+}
+
 </style>
 </head>
 
 <body>
 
-<h1>Chromosoom → DNA → Gen → Eiwit</h1>
+<h1>Genetica - Genomica. 
+<br>Cel → Chromosoom → DNA → Gen → Eiwit</h1>
 
-<h2>Structuur van DNA</h2>
+<h2>Structuur van een chromosoom</h2>
 <p>
-Een chromosoom bestaat uit DNA.<br>
-DNA is opgebouwd uit nucleotiden.<br>
-DNA bestaat uit twee strengen die om elkaar heen draaien in een dubbele helix.<br> 
-De strengen zijn opgebouwd uit nucleotiden, die elk bestaan uit een fosfaatgroep, suiker (deoxyribose) en een stikstofbase (A, T, C of G).<br>
-De volgorde van deze basen vormt de genetische informatie.
-</p>
-
-<div class="dna-container">
-    <a href="#img1">
-        <img src="images/dnavol.jpg" alt="Structuur van DNA" class="dna-img">
-    </a>
+Van de kleinste bouwstenen naar de grotere structuur: van atomen naar moleculen, nucleotiden, DNA-moleculen en DNA-strengen. <br>Een chromosoom bestaat uit twee DNA-strengen. In een gewone menselijke lichaamscel zijn er dus 92 DNA-strengen aanwezig<br>
+<div class="highlight">
+<p>Een chromosoom bestaat uit een zeer lange dubbelstrengse DNA-molecule, die samen met eiwitten is opgerold en georganiseerd. </p>
 </div>
+<h2>DNA</h2>
+<p>DNA-molecule: een molecule is een geheel van twee of meer atomen die chemisch aan elkaar verbonden zijn. In het geval van DNA zeer veel atomen.<br>
+DNA-streng: is een streng van zeer veel moleculen, verzameld in bouwstenen (de nucleotiden). Elk nucleotide bestaat uit een fosfaatgroep, de suiker deoxyribose en één stikstofbase: A, T, C of G.</p>
+<p>In menselijke cellen bestaat DNA uit twee complementaire DNA-strengen die in een dubbele helix om elkaar heen draaien. De basen van de twee strengen paren complementair: A met T en C met G. Ze worden daarbij door waterstofbruggen bij elkaar gehouden.</p>
+<div class="highlight">
+<p>De volgorde van de basen in het DNA vormt de genetische informatie.</p>
+</p>
+</div>
+
+<div class="fotokader"><img class="foto" src="images/dnavol.jpg"></a></div>
 
 <!-- Lightbox -->
 <div id="img1" class="lightbox">
@@ -179,12 +202,15 @@ Voorbeeld: c.149T&gt;A : één nucleotide is veranderd → p.Ile50Asn : één am
 <div class="highlight">
 <strong>Essentie:</strong>
 
-De mutatie ontstaat in het DNA, maar het effect treedt op in het eiwit.
+De mutatie ontstaat in het DNA maar het effect treedt op in het eiwit.
 </div>
 
 <h2>Omics en Genomica</h2>
 
- Omics verwijst naar een verzameling vakgebieden in de moleculaire biologie die zich richten op de globale en integrale studie van alle moleculen van een bepaald type in een levend organisme. 
+<p>
+ Omics verwijst naar een verzameling vakgebieden in de moleculaire biologie die zich richten op de globale en integrale studie van alle moleculen van een bepaald type in een levend organisme. 		
+</p>
+
  <ul>
  <li>Genomics: De studie van het volledige erfelijkheidsmateriaal (het genoom of DNA).
  <li>Proteomics: De studie van alle eiwitten (proteoom) in een cel of weefsel.
@@ -192,6 +218,12 @@ De mutatie ontstaat in het DNA, maar het effect treedt op in het eiwit.
  <li>Transcriptomics: De studie van al het RNA dat wordt afgelezen (transcriptoom).
  </ul>
  
+ <div class="highlight">
+ <p>
+Genomische geneeskunde is een interdisciplinair medisch specialisme dat de volledige genetische informatie (het genoom) van een individu gebruikt om klinische beslissingen te nemen. In plaats van te kijken naar één enkel gen (zoals in de klassieke genetica), analyseert dit vakgebied de opbouw en de interactie van alle genen samen (het complete DNA). Deze data worden ingezet om ziekten nauwkeuriger te diagnosticeren, risico's te voorspellen en behandelingen op maat te sturen.
+ </p>
+ </div>
+
  <div style="overflow-x: auto;">
   <table style="width: 100%; border-collapse: collapse; font-family: sans-serif; margin: 20px 0; font-size: 16px; text-align: left; border: 1px solid #ddd;">
     <thead>
@@ -228,6 +260,61 @@ De mutatie ontstaat in het DNA, maar het effect treedt op in het eiwit.
 <hr>
 
 <script>
+
+// ====================================================
+// Foto's
+// ====================================================
+
+const fotos = document.querySelectorAll(".foto");
+let actieveFoto = null;
+
+fotos.forEach(foto => {
+
+    foto.dataset.scale = 1;
+
+    foto.addEventListener("click", function () {
+
+        if (actieveFoto && actieveFoto !== foto) {
+            actieveFoto.classList.remove("actief");
+        }
+
+        actieveFoto = foto;
+        actieveFoto.classList.add("actief");
+
+      });
+
+    foto.addEventListener("dblclick", function () {
+
+        foto.dataset.scale = 1;
+        foto.style.transform = "scale(1)";
+
+      });
+
+
+    foto.addEventListener("wheel", function (e) {
+
+        if (actieveFoto !== foto)
+            return;
+
+        e.preventDefault();
+
+        let scale = parseFloat(foto.dataset.scale);
+
+        if (e.deltaY < 0)
+            scale *= 1.05;
+        else
+            scale *= 0.95;
+
+        scale = Math.max(0.5, Math.min(2.0, scale));
+
+        foto.dataset.scale = scale;
+        foto.style.transform = `scale(${scale})`;
+
+    }, { passive:false });
+
+});
+
+
 document.addEventListener('keydown', function(e) {
     if (e.key === "Escape") {
         window.location.hash = "";
