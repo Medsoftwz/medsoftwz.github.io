@@ -257,6 +257,7 @@ Genomische geneeskunde is een interdisciplinair medisch specialisme dat de volle
     </tbody>
   </table>
 </div>
+<div class="fotokader"><img class="foto" src="images/dnaspiraal.jpg"></a></div>
 <hr>
 
 <script>
@@ -269,57 +270,62 @@ const fotos = document.querySelectorAll(".foto");
 let actieveFoto = null;
 
 fotos.forEach(foto => {
-
     foto.dataset.scale = 1;
-
-    foto.addEventListener("click", function () {
-
+    
+	foto.addEventListener("click", function () {
         if (actieveFoto && actieveFoto !== foto) {
             actieveFoto.classList.remove("actief");
         }
-
         actieveFoto = foto;
         actieveFoto.classList.add("actief");
-
       });
 
     foto.addEventListener("dblclick", function () {
-
         foto.dataset.scale = 1;
         foto.style.transform = "scale(1)";
-
       });
 
-
     foto.addEventListener("wheel", function (e) {
-
         if (actieveFoto !== foto)
             return;
-
         e.preventDefault();
-
         let scale = parseFloat(foto.dataset.scale);
-
         if (e.deltaY < 0)
             scale *= 1.05;
         else
             scale *= 0.95;
-
         scale = Math.max(0.5, Math.min(2.0, scale));
-
         foto.dataset.scale = scale;
         foto.style.transform = `scale(${scale})`;
-
     }, { passive:false });
-
 });
 
+// ====================================================
+// Toetsenbord
+// ====================================================
 
-document.addEventListener('keydown', function(e) {
+document.addEventListener("keydown", function(e) {
+
+    if (!actieveFoto)
+        return;
+    let scale = parseFloat(actieveFoto.dataset.scale);
+    if (e.key == "+" || e.key == "=" || e.code == "NumpadAdd")
+        scale *= 1.05;
+    if (e.key == "-" || e.code == "NumpadSubtract")
+        scale *= 0.95;
     if (e.key === "Escape") {
-        window.location.hash = "";
+        actieveFoto.dataset.scale = 1;
+        actieveFoto.style.transform = "scale(1)";
+        actieveFoto.classList.remove("actief");
+        actieveFoto = null;
+        return;
     }
+
+    scale = Math.max(0.5, Math.min(2.0, scale));
+    actieveFoto.dataset.scale = scale;
+    actieveFoto.style.transform = `scale(${scale})`;
 });
+
 </script>
 
 </body>
