@@ -38,22 +38,46 @@ h2 { font-size: 17px; margin: 20px 20px 16px 10px; color: #008000; font-weight: 
 
 p { margin: 5px 2px 10px 5px; }
 
-#foto {
-    width: 100%;
-    display: block;
-    margin: auto;
-    transform: scale(1);
-    transition: transform 0.05s linear;
-    cursor: zoom-in;    
+.hint { margin-top:1px; font-size:14px; color:#666;  font-style:italic; text-align: center; }
+
+.link { color: #502828; font-weight: 400; text-decoration: underline; }
+
+/* Knoppen */
+
+.knop {
+	display: inline-block;
+    background-color: #0055a4;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 5px 10px;
+    padding: 8px 18px;
+    transition: background-color .2s;
 }
-.fotokader { text-align:center; margin-top:2px; }
+.knoppen { text-align: center; }
+.knop:hover { background-color: #a0c260; }
+.knop:active { transform: translateY(1px); }
 
-.hint { margin-top:1px; font-size:14px; color:#666;  font-style:italic; }
+/* Afbeelding */
 
-.link {
-    color: #502828; 
-    font-weight: 400;
-    text-decoration: underline; 
+.foto {
+  width: 90%;
+  max-width: 1200px;
+  display: block;
+  margin: 0 auto 5px auto;
+  transform: scale(1);
+  transition: transform 0.05s linear;
+  cursor: zoom-in;
+  user-select: none;
+}
+.fotokader { margin: 0px 0; }
+.foto.actief {
+    outline: 3px solid #2563eb;
+    outline-offset: 3px;
+    box-shadow: 0 0 12px rgba(37,99,235,0.35);
 }
 
 </style>
@@ -193,35 +217,53 @@ Dat was de ambitie van de pioniers meer dan drie decennia geleden. Het blijft oo
 
 <hr>
 
-<div class="fotokader">
-    <img id="foto" src="images/35jaar.jpg" alt="35 jaar medische informatica">
-    <div class="hint">
-        🔍 1 juni 2026
-    </div>
-</div>
+<div class="knoppen"><a class="knop" href="emd2026.html" target="_blank">EMD 2026</a></div>
 
+<hr>
+
+<div class="fotokader"><img class="foto" src="images/35jaar.jpg" alt="35 jaar medische informatica"></div>
+
+<p class="hint"> 🔍 1 juni 2026</div>
+
+<hr color="#008000">
 
 <script>
-const foto = document.getElementById("foto");
+// ====================================================
+// Foto's
+// ====================================================
 
-foto.addEventListener("wheel", function(e) {
+const fotos = document.querySelectorAll(".foto");
+let actieveFoto = null;
 
-    e.preventDefault();
-
-    let scale = parseFloat(foto.dataset.scale || 1);
-
-    scale *= (e.deltaY < 0) ? 1.05 : 0.95;
-
-    scale = Math.max(0.5, Math.min(2.0, scale));
-
-    foto.style.transform = `scale(${scale})`;
-    foto.dataset.scale = scale;
-
-}, { passive:false });
-
-foto.addEventListener("click", function() {
-    foto.style.transform = "scale(0.8)";
+fotos.forEach(foto => {
     foto.dataset.scale = 1;
+    
+	foto.addEventListener("click", function () {
+        if (actieveFoto && actieveFoto !== foto) {
+            actieveFoto.classList.remove("actief");
+        }
+        actieveFoto = foto;
+        actieveFoto.classList.add("actief");
+      });
+
+    foto.addEventListener("dblclick", function () {
+        foto.dataset.scale = 1;
+        foto.style.transform = "scale(1)";
+      });
+
+    foto.addEventListener("wheel", function (e) {
+        if (actieveFoto !== foto)
+            return;
+        e.preventDefault();
+        let scale = parseFloat(foto.dataset.scale);
+        if (e.deltaY < 0)
+            scale *= 1.05;
+        else
+            scale *= 0.95;
+        scale = Math.max(0.5, Math.min(2.0, scale));
+        foto.dataset.scale = scale;
+        foto.style.transform = `scale(${scale})`;
+    }, { passive:false });
 });
 
 </script>
