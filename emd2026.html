@@ -24,22 +24,18 @@
 <style>
 
 body {
-  
-  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  color: #295d93;	  
-  
-  padding: 0px 10px 0px 20px;  /* Clockwise: top (0), right (10px), bottom (0), left (20px)  - rand binnen element */
-  margin-top: 0px 10px 0px 10px;  /* Clockwise: top (0), right (10px), bottom (0), left (20px) - rand buiten element */
-
-  line-height: 1.5;
-  
-  background-image: url('images/wzbakste.jpg');
-  background-attachment: fixed;
-  
-  text-align: justify;
- }
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    font-weight: 500;
+	font-size: 17px;
+    color: #295d93;	
+    line-height: 1.4;
+    background-image: url('images/wzbakste.jpg');
+    background-attachment: fixed;
+    text-align: justify;
+    max-width: none;
+    margin: 5px 10px 10px 5px;
+    padding: 1px 20px 15px 20px;
+}
 
 h1 { margin: 5; font-size: 19px; font-weight: 400; color: #2563eb;  text-align:center; }
 h2 { margin: 5; font-size: 18px; font-weight: 400; color: #2563eb;  text-align:center; }
@@ -93,19 +89,16 @@ li { margin: 2px 0px 2px 0px; padding: 0px 0px 0px 5px; }
 /* Knop naar link */
 
 .knop {
-	display: inline-block;
-	margin: 25px 10px;
-
-    padding: 8px 18px;
-    background-color: #0055a4;
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-
     font-family: Arial, sans-serif;
     font-size: 14px;
     font-weight: bold;
-
+	text-decoration: none;
+    color: white;
+    background-color: #0055a4;	
+	display: inline-block;
+	margin: 25px 10px;
+    padding: 8px 18px;
+    border-radius: 6px;
     transition: background-color .2s;
 }
 .knoppen { text-align: center; }
@@ -126,7 +119,8 @@ li { margin: 2px 0px 2px 0px; padding: 0px 0px 0px 5px; }
 .highlight {
   font-family: "Segoe UI", Arial, Helvetica, sans-serif;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 17px;
+  line-height: 1.4;
   color: #502828;
   background: #eef5fb;
   border-left: 5px solid #3b82f6;
@@ -201,7 +195,7 @@ De arts registreert in vrije tekst of via dictatie, waarna het EMD de informatie
 De gestandaardiseerde gegevens kunnen vervolgens worden hergebruikt 
 <ul>
 <li>voor rapportering, epidemiologie, beslissingsondersteuning en gegevensuitwisseling of </li>
-<li><a href="index.html#prag">via mappings</a> worden vertaald naar ICD-11 en andere classificaties en/of andere talen.</li>
+<li><a href="zoektrfweb.html">via mappings</a> worden vertaald naar ICD-11 en andere classificaties en/of andere talen.</li>
 </ul>	
 </p>
 </div>
