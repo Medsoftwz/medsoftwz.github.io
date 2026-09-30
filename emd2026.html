@@ -37,6 +37,46 @@ body {
     padding: 1px 20px 15px 20px;
 }
 
+/* ===== HEADER =====   background: var(--card); */
+
+.header {
+  padding: 2px 14px 1px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  background: #F6FEF6;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.header h1 { 
+  margin: 0; 
+  font-size: 17px;
+  font-weight: 400;
+  color: #2563eb; 
+  text-align:center; }
+
+.header p { 
+	margin: 10px 0 1px; 
+	text-align: center; 
+	font-size: 15px; 
+	color: var(--muted); }
+
+.header-top {
+    display: grid;
+    grid-template-columns: 90px 1fr 90px;
+    align-items: center;
+}    
+
+.header-text { text-align: center; margin-top: -10px; }
+
+.header-logo {
+    width: 60px;
+    height: auto;
+    justify-self: center;
+    margin-top: 12px;
+}
+
+
+
 h1 { margin: 5; font-size: 19px; font-weight: 400; color: #2563eb;  text-align:center; }
 h2 { margin: 5; font-size: 18px; font-weight: 400; color: #2563eb;  text-align:center; }
 
@@ -180,7 +220,22 @@ li { margin: 2px 0px 2px 0px; padding: 0px 0px 0px 5px; }
 
 <body>
 
-<h1>Het elektronisch medisch dossier (EMD), anno 2026.</h1>
+<div class="header">
+
+  <div class="header-top">
+
+    <img src="images/logo.jpg" alt="Logo" class="header-logo">
+
+    <div class="header-text">
+      <h1>Het elektronisch medisch dossier (EMD) anno 2026</h1>
+      <p>codering - classificatie - voorschriften - kunstmatige intelligentie - gegevensuitwisseling - sumehr</p>
+    </div>
+
+    <img src="images/logo.jpg" alt="Logo" class="header-logo">
+
+  </div>
+  </div>
+
 
 <p>De kwaliteit van een EMD wordt anno 2026 niet zozeer bepaald door de mogelijkheid om informatie elektronisch op te slaan maar door de mate waarin die informatie gestructureerd, semantisch eenduidig en herbruikbaar is.</p>
 
