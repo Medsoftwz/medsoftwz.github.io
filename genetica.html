@@ -32,10 +32,53 @@ body {
     padding: 20px;
 }
 
+/* ===== HEADER =====   background: var(--card); */
+
+.header {
+  padding: 2px 14px 1px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  background: #F6FEF6;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.header h1 { 
+  margin: 0; 
+  font-size: 17px;
+  font-weight: 400;
+  color: #2563eb; 
+  text-align:center; }
+
+.header p { 
+	margin: 10px 0 1px; 
+	text-align: center; 
+	font-size: 15px; 
+	color: var(--muted); }
+
+.header-top {
+    display: grid;
+    grid-template-columns: 90px 1fr 90px;
+    align-items: center;
+}    
+
+.header-text { text-align: center; margin-top: -10px; }
+
+.header-logo {
+    width: 60px;
+    height: auto;
+    justify-self: center;
+    margin-top: 12px;
+}
+
+
+
 h1 {
-    text-align: center;
-    font-size: 16px;
-    margin: 0px 20px 10px 10px;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    font-weight: 500; 	
+    color: #008000; 	
+    margin: 0px 5px 20px 5px;
+	text-align: center;
 }
 
 h2 { 
@@ -45,7 +88,8 @@ h2 {
   color: #008000; 
   text-align: left; 
   background-color: #FFFF00;;
-  padding: 0px 12px; /* geeft wat ademruimte rondom de tekst */
+  margin: 0px 0px 10px 0px;
+  padding: 0px 12px;
 }
 
 h3 { margin: 5px; font-size: 16px; font-weight: 500; color: #808080; text-align: left; }
@@ -61,11 +105,14 @@ ul { margin: 0px 0px 10px 0px; }
 ol { margin: 2px 0px 4px 15px; }
 li { margin: 2px 0px 2px 0px; padding: 0px 0px 0px 2px; }
 
+
 .highlight {
+    width: fit-content;
+    max-width: 100%;
     background: #eef5fb;
-    padding: 12px;
     border-left: 5px solid #3b82f6;
-    margin: 0px 20px 10px 10px;
+    margin: 0 20px 10px 10px;
+    padding: 5px 10px;
 }
 
 /* Afbeelding */
@@ -137,8 +184,30 @@ li { margin: 2px 0px 2px 0px; padding: 0px 0px 0px 2px; }
 
 <body>
 
-<h1>Genetica - Genomica. 
-<br>Cel → Chromosoom → DNA → Gen → Eiwit</h1>
+<div class="header">
+
+  <div class="header-top">
+
+    <img src="images/logo.jpg" alt="Logo" class="header-logo">
+
+    <div class="header-text">
+      <h1>Genetica - Genomica. </h1>
+      <h1>Genoom → Cel → Chromosoom → DNA → Gen → Eiwit</h1>
+    </div>
+
+    <img src="images/logo.jpg" alt="Logo" class="header-logo">
+  </div>
+  </div>
+<hr>
+<h2>Het genoom</h2>
+<p>
+Het genoom is al het DNA dat samen de erfelijke informatie bevat, verdeeld over de chromosomen.<br>
+In een menselijke lichaamscel: 46 chromosomen (23 paren); die chromosomen bestaan voornamelijk uit DNA + eiwitten; het geheel van die genetische informatie = het menselijke genoom.<br>
+DNA is het materiaal, chromosomen zijn de verpakte vorm en het genoom is de totale genetische inhoud.
+</p>
+<div class="highlight">
+Genoom = de volledige genetische informatie van een organisme.
+</div>
 
 <h2>Structuur van een chromosoom</h2>
 <p>
@@ -153,7 +222,12 @@ In een gewone menselijke lichaamscel zijn er dus 92 DNA-strengen aanwezig.
 
 <h2>DNA-molecule | DNA-streng | Nucleotide</h2>
 
-<p>Een molecule is een geheel van twee of meer atomen die chemisch aan elkaar verbonden zijn. In het geval van de DNA-molecule zeer veel atomen.</p>
+<p>
+Een molecule is een geheel van twee of meer atomen die chemisch aan elkaar verbonden zijn. In het geval van de DNA-molecule zeer veel atomen.<br>
+	DNA staat voor desoxyribonucleïnezuur (deoxyribonucleic acid). Het nucleïnezuur dat desoxyribose bevat.<br>
+	DNA is een nucleïnezuur dat bestaat uit een lange keten van nucleotiden.
+</p>
+
 
 <p>DNA-streng: is een streng van zeer veel atomen, verzameld in bouwstenen (de nucleotiden). Elk nucleotide bestaat uit een fosfaatgroep, de suiker deoxyribose en één stikstofbase: A, T, C of G. De basen van de twee strengen paren complementair: A met T en C met G. Ze worden daarbij door waterstofbruggen bij elkaar gehouden.</p>
 
@@ -161,16 +235,13 @@ In een gewone menselijke lichaamscel zijn er dus 92 DNA-strengen aanwezig.
 
 <div class="highlight">
 <p>De volgorde van de basen in het DNA vormt de genetische informatie.</p>
-</p>
 </div>
 
 <div class="fotokader"><img class="foto" src="images/dnavol.jpg"></a></div>
 
 <!-- Lightbox -->
 <div id="img1" class="lightbox">
-    <a href="#">
-        <img src="images/dnavol.jpg" alt="Vergrote DNA structuur">
-    </a>
+    <a href="#"><img src="images/dnavol.jpg" alt="Vlakke DNA structuur"></a>
 </div>
 
 <h2>Gen</h2>
