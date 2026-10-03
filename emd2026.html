@@ -75,8 +75,6 @@ body {
     margin-top: 12px;
 }
 
-
-
 h1 { margin: 5; font-size: 19px; font-weight: 400; color: #2563eb;  text-align:center; }
 h2 { margin: 5; font-size: 18px; font-weight: 400; color: #2563eb;  text-align:center; }
 
@@ -98,8 +96,13 @@ ul { margin: 0px 0px 0px 0px; }
 ol { margin: 2px 0px 4px 15px; }
 li { margin: 2px 0px 2px 0px; padding: 0px 0px 0px 5px; }
 
-.auto-style1 {text-align: center;}
-.auto-style2 {text-align: justify;}
+.center {text-align: center;}
+.justify {text-align: justify;}
+
+a { color: #2563eb; text-decoration: underline; }
+a:hover { color: #FF0000; text-decoration: underline; }
+a:active { color: red; }
+.link { color: #44bc86; font-weight: 400; text-decoration: underline; }
 
 .footer { text-align: center; font-size: 14px; color: # 808080; padding: 6px 0 12px; }
 .footer a { color: #2563eb; text-decoration-style: dashed; text-decoration-thickness: 1px; }
@@ -144,8 +147,6 @@ li { margin: 2px 0px 2px 0px; padding: 0px 0px 0px 5px; }
 .knoppen { text-align: center; }
 .knop:hover { background-color: #a0c260; }
 .knop:active { transform: translateY(1px); }
-
-.link { color: #502828; font-weight: 400; text-decoration: underline; }
 
 /* Embedded video */
 
@@ -288,13 +289,14 @@ en de arts ondersteunen met:
 <a href="index.html#prag">pragmatische klinische taxonomie, </a>
 <a href="index.html#sema">semantische modellering, </a>
 <a href="index.html#stru">structured clinical data generator, </a>
-<a href="index.html#kuns"">kunstmatige intelligentie.</a>
+<a href="index.html#kuns">kunstmatige intelligentie.</a>
 </li>
 </ul>
 </p>
 
 <p>
-Kunstmatige intelligentie (AI) kan hierop voortbouwen maar <a href="rugvglai.html" class="link">de meerwaarde van AI</a> staat of valt met de kwaliteit, volledigheid en semantische eenduidigheid van de gegevens waarop zij werkt. <br>AI kan vervolgens grote hoeveelheden informatie uit het dossier analyseren, verbanden leggen tussen klachten, diagnosen, medicatie en onderzoeksresultaten en de arts gericht attenderen op mogelijke diagnosen en differentieel diagnosen, relevante risico's of ontbrekende informatie.
+Kunstmatige intelligentie (AI) kan hierop voortbouwen maar 
+<a href="psytree.html">de meerwaarde van AI</a> staat of valt met de kwaliteit, volledigheid en semantische eenduidigheid van de gegevens waarop zij werkt. <br>AI kan vervolgens grote hoeveelheden informatie uit het dossier analyseren, verbanden leggen tussen klachten, diagnosen, medicatie en onderzoeksresultaten en de arts gericht attenderen op mogelijke diagnosen en differentieel diagnosen, relevante risico's of ontbrekende informatie.
 </p>
 
 <div class="highlight">
@@ -317,7 +319,6 @@ De gestructureerde registratie via SNOMED CT en via de gestandaardiseerde genees
 
 <h3 id="extern">5. Gegevensuitwisseling medische gegevens met externe databanken</h3>
 
-<p>
 <div class="highlight">
 <p>
 Het EMD zou deze uiteenlopende medische gegevensstromen uit externe databanken en systemen in één medisch dossier moeten kunnen samenbrengen en integreren.<br>
@@ -331,7 +332,8 @@ België is nog volop bezig met de omschakeling. Zo wordt:
 <li>voor medische beeldvorming de DICOM-standaard gebruikt, onder meer langs de PACSonWEB-route;</li>
 <li>voor geneesmiddelengegevens, gebruikgemaakt van onder meer apotheken, GFD, FarmaFlux, VIDIS, Vitalink en het eHealth-platform, met onder andere de SAM-standaard (AMP-VMP/CNK/ATC) en betrokkenheid van APB en OPHACO;</li>
 <li>elektronische aanvraagformulieren en andere diensten door e-health ter beschikking gesteld van de medische software </li>
-<li>sinds de lancering van Vaccinnet 2026 (FHIR standaard; geïntegreerd met <a href="#" onclick="openPopup('vitalink'); return false;">Vitalink)<a/> verloopt de interactie via beveiligde eHealth-webservices.</li>
+<li>sinds de lancering van Vaccinnet 2026 (FHIR standaard; geïntegreerd met 
+<a href="#" onclick="openPopup('vitalink'); return false;">Vitalink)</a> verloopt de interactie via beveiligde eHealth-webservices.</li>
 </ul>	
 </p>
 
@@ -359,16 +361,16 @@ België is nog volop bezig met de omschakeling. Zo wordt:
   </div>
 </div>
 
-<h3 id="AI">7. AI en EMD – Onderschat AI niet</h3>
+<h3 id="AI">7. Kuntsmatige intelligentie (AI) en EMD – Onderschat AI niet</h3>
 
 <p>
 Na ongeveer 35 jaar medische informatica beschikken we nog altijd niet over het EMD waarvan men redelijkerwijs zou mogen verwachten dat het de huisarts optimaal ondersteunt in zijn medische informatieverwerking.
-De vraag is niet meer hoeveel functies en AI we nog aan het bestaande EMD kunnen toevoegen maar of we het ons in 2026 nog kunnen veroorloven om een EMD-architectuur uit een vorige generatie software als uitgangspunt te blijven nemen.
+De vraag is niet meer uitsluitend hoeveel functies en AI we nog aan het bestaande EMD kunnen toevoegen maar of we het ons in 2026 nog kunnen veroorloven om een EMD-architectuur uit een vorige generatie software als uitgangspunt te blijven nemen.
 </p>
 
 <div class="highlight">
 <p>
-De grootste kans van AI in de medische informatica ligt niet in het toevoegen van een AI-functie aan het bestaande EMD. De echte kans ligt erin een nieuw soort EMD door AI te laten ontwerpen. Vanuit een moderne, modulaire en API-first architectuur, met een gestructureerde medische informatiekern als fundament.	
+Het belang en het gewicht van AI in de medische informatica zal steeds verder toenemen. Zoals het toevoegen van AI-functies aan de bestaande of overlevende EMD's. Nog belangrijker wordt het om een nieuw soort EMD door AI te laten ontwerpen. Vanuit een moderne, modulaire en API-first architectuur, met een gestructureerde medische informatiekern als fundament.	
 </p>
 </div>
 
