@@ -33,15 +33,15 @@
 /* ===== BASIS =====    body: background: var(--bg) */
 
 body {
-  margin-top: 0px;
-  margin-right: 0px;
-  margin-bottom: 0px;
-  margin-left: 0px;
+
   font-family: "Segoe UI", Arial, sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.5;
-    background-image: url('images/wzcranum.jpg');
-    background-attachment: fixed;
+  margin: 0px 10px 0px 0px; 
+  
+  background-image: url('images/wzcranum.jpg');
+  background-attachment: fixed;
+  
   color: var(--text);
  }
 
@@ -170,20 +170,8 @@ body {
 .footer { text-align: center; font-size: 14px; color: # 808080; padding: 6px 0 12px; }
 .footer a { color: #2563eb; text-decoration-style: dashed; text-decoration-thickness: 1px; }
 
-/* ===== DARK MODE ===== */
+/* ===== Popup ===== */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0f172a;
-    --card: #1e293b;
-    --text: #e2e8f0;
-    --muted: #94a3b8;
-  }
-
-  .link:hover { background: rgba(96,165,250,0.15); color: #60a5fa; }
-
-  .header { border-bottom: 1px solid rgba(255,255,255,0.05); } }
-  
 .popup{
     display:none;
     position:fixed;
@@ -211,7 +199,6 @@ body {
 }
 .close{ float:right; font-size:28px; cursor:pointer; font-weight:bold; }
 .close:hover{ color:red; }
- 
 
 </style>
 
@@ -295,7 +282,7 @@ body {
 <div class="grid">
 
 <div class="card">
-<a class="link" href="vgltemplate.html"><span class="icon">🧭</span>Vragenlijst Template</a>
+<a class="link" href="obesitas.html"><span class="icon">🧭</span>Obesitas evaluatie</a>
 <a class="link" href="appendicitis.html"><span class="icon">🔪</span>Appendicitis score</a>
 <a class="link" href="astma.html"><span class="icon">🎣</span>Astma score</a>
 <a class="link" href="fas.html"><span class="icon">👩‍🦼</span>Functionele Activiteiten Score (FAS)</a>
