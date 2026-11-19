@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta property="og:locale" content="nl_BE">
+<meta property="og:title" content="Diagnostisch kader obesitas">
+<meta property="og:description" content="BMI, WHR, WHtR, preklinische obesitas, buikomtrek, middelomtrek, gewicht, lengte">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://medsoftwz.github.io/obesitas.html">
+<meta property="og:image" content="https://medsoftwz.github.io/images/obesitas.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="images/jpg">
+
+
+<title>Diagnostisch kader obesitas</title>
+
+<style>
+
+/* =====================================================
+   BASIS
+===================================================== */
+
+body{
+    font-family:Arial,sans-serif;
+    margin:0;
+    background:#f4f4f4;
+    padding-bottom:120px;
+}
+
+.color { color: #008000; }
+.blauw { color: #0000FF; }
+.blauwbleek { color: #0080FF }
+.blauwgrijs { color: #004080 }
+.blauwgroen { color: #008080 }
+.blauwlicht { color: #0080C0 }
+.bruin { color: #A52A2A }
+.bruinwz { color: #804040 }
+.geel { color: #FFFF00 }
+.grijs {color: # 808080 }
+.groen { color: #008000; }
+.groenlime { color: #00FF00 }
+.paars { color: #800080 }
+.rood { color: #FF0000; }
+.roodbruin { color: #800040 }
+.roze { color: #FF8080 }
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:999;
+    background:white;
+    padding:6px 6px 2px 6px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.08);
+}
+
+h1{
+    text-align:center;
+    color:#2e7d32;
+    font-size:16px;
+    font-weight:normal;
+    margin:2px 0 6px 0;
+}
+
+.disclaimer-mini{
+    text-align:center;
+    font-size:10px;
+    color:#666;
+    line-height:1.2;
+    margin:0 4px 6px 4px;
+}
+
+/* =====================================================
+   TABS
+===================================================== */
+
+.tabs{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:4px;
+}
+
+.tablink{
+    background:#468CD2;
+    color:white;
+    border:none;
+    padding:10px 14px;
+    border-radius:6px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.tablink.active{
+    background:#3BAF17;
+}
+
+.tablink.completed{
+    background:#1f6f0e;
+}
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.tab-content{
+    display:none;
+    padding:6px;
+}
+
+.tab-content.active{
+    display:block;
+}
+
+/* =====================================================
+   VRAAGVELDEN
+===================================================== */
+
+.question{
+    background:white;
+    border:2px solid #3BAF17;
+    border-radius:8px;
+    margin:5px 0;
+    padding:8px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.1);
+}
+
+.question.active{
+    border-width:3px;
+}
+
+.question.flash{
+    animation:flashGreen 0.35s ease;
+}
+
+@keyframes flashGreen{
+    0%{background:white;}
+    40%{background:#d9ffd9;}
+    100%{background:white;}
+}
+
+.q-text{
+    color:#003c7a;
+    font-size:15px;
+    margin-bottom:8px;
+    line-height:1.3;
+}
+
+.q-options{
+    color:#2e7d32;
+}
+
+.q-options label{
+    display:block;
+    margin:4px 0;
+}
+
+/* =====================================================
+   INPUTS
+===================================================== */
+
+input[type="number"]{
+    width:120px;
+    padding:6px;
+    border:1px solid #ccc;
+    border-radius:4px;
+    font-size:14px;
+}
+
+textarea{
+    width:100%;
+    min-height:180px;
+    padding:10px;
+    border-radius:6px;
+    border:1px solid #ccc;
+    font-size:14px;
+    resize:vertical;
+    box-sizing:border-box;
+}
+
+.result-value{
+    color:#8b0000;
+    font-weight:bold;
+    margin-top:6px;
+}
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.section-buttons{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:14px;
+    flex-wrap:wrap;
+}
+
+.action-btn{
+    background:#004080;
+    color:white;
+    border:none;
+    padding:10px 16px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.action-btn:hover{background:#0060b5;}
+
+/* =====================================================
+   RESULTAAT
+===================================================== */
+
+.result-box{
+    text-align:center;
+    margin-top:10px;
+    color:#800000;
+    font-weight:bold;
+    white-space:pre-line;
+}
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+.progress-container{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:22px;
+    background:#ddd;
+    z-index:999;
+}
+
+.progress-bar{
+    height:100%;
+    width:0%;
+    transition:0.4s;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    font-size:11px;
+    font-weight:bold;
+}
+
+/* =====================================================
+   MELDING
+===================================================== */
+
+.completion-message{
+    position:fixed;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%);
+    background:rgba(46,125,50,0.92);
+    color:white;
+    padding:5px 12px;
+    border-radius:5px;
+    font-size:12px;
+    opacity:0;
+    transition:0.3s;
+}
+
+.completion-message.show{opacity:1;}
+
+.reference-box{
+    background:#eef4ff;
+    border:1px solid #b8cceb;
+    border-radius:6px;
+    padding:10px;
+    margin-top:15px;
+    font-size:13px;
+    line-height:1.4;
+}
+
+.box{
+    color:#004080;
+    background:#eef4ff;
+    border:1px solid #b8cceb;
+    border-radius:6px;
+    padding:10px;
+    margin-top:15px;
+    font-size:15px;
+    line-height:1.4;
+}
+
+
+.info-btn{
+  color:#008000;
+  cursor:pointer;
+  margin-left:6px;
+    display:inline-flex;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    background:#4f7fd1;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    align-items:center;
+    justify-content:center;
+    vertical-align:middle;
+}
+
+.info-modal{
+  display:none;
+  position:fixed;
+  z-index:99999;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.35);
+}
+
+.info-modal-content{
+  background:#fffde7;
+  width:min(92%,700px);
+  max-height:85vh;
+  overflow:auto;
+  margin:8vh auto;
+  padding:15px 20px;
+  border-radius:10px;
+  position:relative;
+  box-shadow:0 4px 18px rgba(0,0,0,0.25);
+}
+
+.info-close{
+  position:absolute;
+  right:10px;
+  top:6px;
+  font-size:22px;
+  cursor:pointer;
+}
+
+.info-text{
+  color:#003c7a;
+  line-height:1.5;
+  white-space:pre-line;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+
+<h1 id="mainTitle">Diagnostisch kader obesitas</h1>
+
+<div class="disclaimer-mini">
+Resultaten zijn indicatief en vervangen geen professioneel medisch advies.
+HTML bestand werd geschreven met hulp van AI - Copilot<br>
+</div>
+
+<div class="tabs" id="tabs"></div>
+
+</div>
+
+<div id="container"></div>
+
+<div class="progress-container">
+<div class="progress-bar" id="progressBar"> 0%</div>
+</div>
+
+<div class="completion-message" id="completionMessage">✔ Alle onderdelen ingevuld – klik op Resultaat</div>
+
+<div id="hiddenReference" style="display:none;">
+
+Pan A, Yang S, Ramos R et al.
+Validation of clinical and preclinical obesity across global cohorts.
+Nature (2026)
+DOI: 10.1038/s41586-026-11237-5
+
+</div>
+
+<script>
+
+const INFO_MIDDEL = `
+<b>Middelomtrek - Buikomvang = maat voor abdominale adipositas.</b>
+
+Hoe meten ?
+* ga rechtop staan met je voeten iets uit elkaar;
+* breng een meetlint aan rond je middel, op de blote huid en adem rustig uit;
+* trek het meetlint niet te strak aan;
+* let op de juiste plek: meet de buikomvang tussen de onderste rib en de bovenkant van je bekken, bij de meeste mensen is dit net boven de navel.
+
+Klassieke referentiewaarden voor middelomtrek:
+Mannen: < 94 cm; 94-101 cm verhoogd risico; ≥ 102 cm sterk verhoogd risico
+Vrouwen: < 80 cm; 80-87 cm verhoogd risico; ≥ 88 cm sterk verhoogd risico
+Opmerking: deze waarden houden geen rekening met de lichaamslengte.
+
+<span class="rood">WHtR corrigeert hiervoor en gebruikt als vuistregel: middelomtrek < 50% van de lichaamslengte.</span>
+`;
+
+const INFO_WHTR = `
+<b>WHtR (Waist-to-Height Ratio)</b>
+WHtR = middelomtrek gedeeld door lichaamslengte.
+Voorbeeld: Middelomtrek 95 cm; Lengte 175 cm; WHtR = 95 / 175 = 0,54
+
+Interpretatie:
+< 0,40 : mogelijk ondergewicht
+0,40 - 0,49 : normaal risico
+0,50 - 0,59 : verhoogd cardiometabool risico
+≥ 0,60 : sterk verhoogd risico
+
+<span class="groen">Praktische vuistregel: de WHtR zou minder dan de helft van de lichaamslengte moeten bedragen.</span>
+`;
+
+const INFO_BMI = `
+<b>BMI (Body Mass Index)</b>
+
+BMI = gewicht (kg) / lengte² (m²)
+Voorbeeld: 90 kg - 1,80 m - BMI = 27,8
+
+Volwassenen:
+< 18,5 : ondergewicht
+18,5 - 24,9 : normaal gewicht
+25,0 - 29,9 : overgewicht
+≥ 30,0 : obesitas
+
+De BMI houdt geen rekening met vetverdeling, spiermassa of middelomtrek.
+Daarom geeft WHtR een meer correct resultaat. 
+`;
+
+const INFO_KLINISCHE_OBESITAS = `...`;
+
+/* =====================================================
+   CONFIG
+===================================================== */
+
+const CONFIG = {title : "Diagnostisch kader obesitas"};
+
+/* =====================================================
+   SECTIES
+===================================================== */
+
+const SECTIONS = {
+S1:{title:"Antropometrie"},
+S2:{title:"BMI + WHR"},
+S3:{title:"Orgaandisfunctie"},
+S4:{title:"Functionele beperking"},
+S5:{title:"Resultaat"}
+};
+
+/* =====================================================
+   INIT
+===================================================== */
+
+const container = document.getElementById("container");
+const tabs = document.getElementById("tabs");
+
+document.getElementById("mainTitle").innerText = CONFIG.title;
+
+/* =====================================================
+   TABS
+===================================================== */
+
+Object.entries(SECTIONS).forEach(([key, section], index)=>{
+
+    const btn=document.createElement("button");
+
+    btn.className="tablink" + (index===0 ? " active" : "");
+    btn.innerText=section.title;
+
+    btn.onclick=function(){
+        openTab(key,btn);
+    };
+
+    tabs.appendChild(btn);
+});
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+container.innerHTML=`
+
+<div class="tab-content active" id="S1">
+
+<div class="question">
+<div class="q-text">Gewicht (kg)</div>
+<input
+type="number"
+id="gewicht"
+step="0.1"
+oninput="berekenAntropometrie()">
+</div>
+
+<div class="question">
+<div class="q-text">Lengte (cm)</div>
+<input
+type="number"
+id="lengte"
+step="0.1"
+oninput="berekenAntropometrie()">
+</div>
+
+<div class="question">
+<div class="q-text">Middelomtrek (cm)
+<span class="info-btn" onclick="showInfo(INFO_MIDDEL)">[?]</span></div>
+<input
+    type="number"
+    id="middel"
+    step="0.1"
+    oninput="berekenAntropometrie()">
+</div>
+
+<div class="question">
+<div class="q-text">BMI (Body Mass Index)
+<span class="info-btn" onclick="showInfo(INFO_BMI)">ⓘ</span></div>
+<div class="result-value" id="bmiResult">
+-
+</div>
+
+</div>
+
+<div class="question">
+<div class="q-text">WHtR (Waist-to-Height Ratio | middel-lengteverhouding)
+<span class="info-btn" onclick="showInfo(INFO_WHTR)">ⓘ</span></div>
+<div class="result-value" id="whtrResult">
+-
+</div>
+
+</div>
+
+</div>
+
+<div class="tab-content" id="S2">
+
+<div class="question">
+<div class="q-text">BMI ≥ 30 kg/m²
+<span class="info-btn" onclick="showInfo(INFO_BMI)">ⓘ</span>
+<div id="bmiDecision">Nog niet berekend</div>
+</div>
+</div>
+
+<div class="question">
+<div class="q-text">WHtR ≥ 0,50
+<span class="info-btn" onclick="showInfo(INFO_WHTR)">ⓘ</span>
+<div id="whtrDecision">Nog niet berekend</div>
+</div>
+</div>
+
+<div class="question">
+<div class="q-text">Overtollige adipositas bevestigd</div>
+<div class="result-value" id="adipositasResult">Nog niet bepaald</div>
+</div>
+
+
+<div class="box">
+<b>Nieuwe benadering van obesitas</b><br>
+
+<p>
+Traditioneel werd obesitas voornamelijk gedefinieerd op basis van de Body Mass Index (BMI). In de recente benadering ligt de nadruk niet alleen op de hoeveelheid lichaamsvet maar vooral op de aanwezigheid van gezondheidsproblemen die verband houden met overtollige adipositas.	
+</p>
+
+<p>
+Er is sprake van <b>klinische obesitas</b> wanneer overtollige adipositas leidt tot orgaandisfunctie, chronische ziekte en/of functionele beperkingen, zoals bijvoorbeeld type 2\-diabetes, slaapapneu, hartfalen, obesitasgerelateerde artrose of een verminderde fysieke zelfredzaamheid.<br>
+<span class="bruin">Om tot een volledige diagnose te komen, moet dan ook tab 3 en tab 4 van dit formulier worden ingevuld.</span>
+</p>
+
+<p>
+Van <b>preklinische obesitas</b> spreekt men wanneer overtollige adipositas aanwezig is, maar er nog geen aanwijzingen zijn voor obesitasgerelateerde orgaandisfunctie of functionele beperkingen. Deze toestand houdt een verhoogd risico in op het ontwikkelen van klinische obesitas en andere gezondheidsproblemen in de toekomst.	
+</p>
+
+</div>
+</div>
+
+<div class="tab-content" id="S3">
+
+<div class="question">
+<div class="q-text">Orgaandisfunctie</div>
+<div class="q-options">
+
+<label><input type="checkbox" class="orgaan"> Type 2 diabetes</label>
+<label><input type="checkbox" class="orgaan"> Slaapapneu</label>
+<label><input type="checkbox" class="orgaan"> Hartfalen</label>
+<label><input type="checkbox" class="orgaan"> Hypertensie met orgaanschade</label>
+<label><input type="checkbox" class="orgaan"> Niet-alcoholische leververvetting / steatohepatitis</label>
+<label><input type="checkbox" class="orgaan"> Klinisch relevante gewrichtsklachten of artrose toegeschreven aan obesitas</label>
+<label><input type="checkbox" class="orgaan"> Andere obesitasgerelateerde aandoening</label>
+</div>
+</div>
+</div>
+
+
+<div class="tab-content" id="S4">
+
+<div class="question">
+<div class="q-text">Functionele beperkingen</div>
+<div class="q-options">
+
+<label><input type="checkbox" class="functie"> Beperkte mobiliteit als gevolg van overgewicht</label>
+<label><input type="checkbox" class="functie"> Beperking in dagelijkse activiteiten (ADL beperking)</label>
+<label><input type="checkbox" class="functie"> Verminderde inspanningstolerantie</label>
+<label><input type="checkbox" class="functie"> Andere functionele beperking als gevolg van overgewicht</label>
+</div>
+</div>
+</div>
+
+<div class="tab-content" id="S5">
+
+<div class="question">
+<div class="q-text">Diagnostische classificatie</div>
+<div 
+id="diagnoseResult"
+class="result-value">Nog niet berekend</div>
+
+</div>
+
+<div class="question">
+
+<div class="q-text">Dossiertekst</div>
+<textarea
+id="dossierTekst">
+</textarea>
+</div>
+
+<div class="section-buttons">
+<button class="action-btn" onclick="toonResultaat()">Opslaan</button>
+</div>
+
+<div class="reference-box">
+Pan A, Yang S, Ramos R et al.<br>
+Validation of clinical and preclinical obesity across global cohorts.<br>
+Nature (2026).<br>
+DOI: 10.1038/s41586-026-11237-5
+
+</div>
+
+</div>
+
+`;
+
+/* =====================================================
+   popup
+===================================================== */
+
+function showInfo(text){
+
+  document.getElementById("infoText").innerHTML = text;
+
+  document.getElementById("infoModal").style.display = "block";
+}
+
+function closeInfo(){
+
+  document.getElementById("infoModal").style.display = "none";
+}
+
+window.addEventListener("load",function(){
+
+  document.getElementById("infoModal")
+    .addEventListener("click",function(e){
+
+      if(e.target===this){
+        closeInfo();
+      }
+
+    });
+
+});
+
+
+/* =====================================================
+   TAB
+===================================================== */
+
+function openTab(id,button){
+
+document
+.querySelectorAll(".tab-content")
+.forEach(t => t.classList.remove("active"));
+
+document
+.querySelectorAll(".tablink")
+.forEach(t => t.classList.remove("active"));
+
+document
+.getElementById(id)
+.classList.add("active");
+
+button.classList.add("active");
+
+/* Naar boven scrollen */
+
+window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+});
+
+}
+
+/* =====================================================
+   Bereken
+===================================================== */
+function berekenAntropometrie(){
+
+const gewicht =
+parseFloat(
+document.getElementById("gewicht").value
+);
+
+const lengte =
+parseFloat(
+document.getElementById("lengte").value
+);
+
+const middel =
+parseFloat(
+document.getElementById("middel").value
+);
+
+if(!gewicht || !lengte){
+    return;
+}
+
+const lengteMeter = lengte / 100;
+
+const bmi =
+gewicht / (lengteMeter * lengteMeter);
+
+document.getElementById("bmiResult").innerHTML =
+bmi.toFixed(1);
+
+let whtr = null;
+
+if(middel){
+
+    whtr = middel / lengte;
+
+    document.getElementById("whtrResult").innerHTML =
+    whtr.toFixed(2);
+
+    document.getElementById("whtrDecision").innerHTML =
+    whtr >= 0.50 ? "Ja" : "Nee";
+}
+
+document.getElementById("bmiDecision").innerHTML =
+bmi >= 30 ? "Ja" : "Nee";
+
+/* GEEN afgeronde schermwaarde gebruiken */
+
+const adipositas =
+(bmi >= 30)
+||
+(whtr !== null && whtr >= 0.50);
+
+document.getElementById("adipositasResult").innerHTML =
+adipositas ? "Ja" : "Nee";
+
+/* Overgewicht bepalen */
+
+let gewichtStatus = "";
+
+if(bmi < 25){
+
+    gewichtStatus = "Normaal gewicht";
+
+}
+else if(bmi < 30){
+
+    gewichtStatus = "Overgewicht";
+
+}
+else{
+
+    gewichtStatus = "Obesitas";
+
+}
+
+updateResult(
+adipositas,
+gewichtStatus
+);
+
+}
+
+/* =====================================================
+   RESULTAAT
+===================================================== */
+
+function updateResult(adipositas, gewichtStatus){
+
+const orgaan =
+document.querySelectorAll(".orgaan:checked").length > 0;
+
+const functie =
+document.querySelectorAll(".functie:checked").length > 0;
+
+let diagnose = "";
+
+if(!adipositas){
+
+    diagnose = gewichtStatus;
+
+}
+else if(!orgaan && !functie){
+
+    diagnose = "Preklinische obesitas";
+
+}
+else{
+
+    diagnose = "Klinische obesitas";
+
+}
+
+document.getElementById("diagnoseResult").innerHTML =
+diagnose;
+
+/* DOSSIERTEKST */
+
+let tekst = "";
+
+if(!adipositas){
+
+    if(gewichtStatus==="Overgewicht"){
+
+        tekst =
+        "Er is overgewicht aanwezig maar er zijn momenteel onvoldoende criteria voor obesitas volgens het diagnostisch kader.";
+
+    } else {
+
+        tekst =
+        "Normaal gewicht. Er zijn momenteel onvoldoende criteria voor obesitas volgens het diagnostisch kader.";
+
+    }
+
+}
+else if(!orgaan && !functie){
+
+    tekst =
+    "Er werd overtollige adipositas vastgesteld op basis van antropometrische parameters. Er werden geen obesitasgerelateerde orgaandisfuncties of functionele beperkingen vastgesteld. Dit past bij preklinische obesitas.";
+
+}
+else{
+
+    tekst =
+    "Er werd overtollige adipositas vastgesteld. Tevens zijn obesitasgerelateerde orgaandisfuncties en/of functionele beperkingen aanwezig. Dit voldoet aan de criteria voor klinische obesitas.";
+
+}
+
+document.getElementById("dossierTekst").value =
+tekst;
+
+}
+
+document.addEventListener("change", function(e){
+
+    if(
+        e.target.classList.contains("orgaan")
+        ||
+        e.target.classList.contains("functie")
+    ){
+        berekenAntropometrie();
+    }
+
+});
+
+/* =====================================================
+   RAPPORT
+===================================================== */
+
+function toonResultaat(){
+
+const bmi=
+document.getElementById("bmiResult").innerHTML;
+
+const whtr=
+document.getElementById("whtrResult").innerHTML;
+
+const diagnose=
+document.getElementById("diagnoseResult").innerHTML;
+
+const dossier=
+document.getElementById("dossierTekst").value;
+
+const w=
+window.open();
+
+w.document.write(`
+
+<html>
+
+<head>
+
+<title>Resultaat obesitas</title>
+
+<style>
+
+body{
+font-family:Arial;
+padding:20px;
+line-height:1.5;
+}
+
+h2{
+color:#2e7d32;
+}
+
+.box{
+margin-bottom:15px;
+padding:10px;
+background:#f7f7f7;
+border-left:4px solid #3BAF17;
+}
+
+button{
+background:#2e7d32;
+color:white;
+border:none;
+padding:10px 16px;
+border-radius:6px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Resultaat obesitasdiagnostiek</h2>
+
+<div class="box">
+BMI: ${bmi}
+</div>
+
+<div class="box">
+WHtR: ${whtr}
+</div>
+
+<div class="box">
+Diagnose:
+<b>${diagnose}</b>
+</div>
+
+<div class="box">
+${dossier}
+</div>
+
+<button onclick="window.print()"> Opslaan als PDF </button>
+
+</body>
+
+</html>
+
+`);
+
+}
+
+</script>
+
+<div class="info-modal" id="infoModal">
+
+  <div class="info-modal-content">
+
+    <span class="info-close"
+      onclick="closeInfo()">
+      ×
+    </span>
+
+    <div class="info-text" id="infoText"></div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
