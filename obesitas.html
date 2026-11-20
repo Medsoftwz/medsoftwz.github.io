@@ -154,7 +154,15 @@ textarea{
     box-sizing:border-box;
 }
 
-.result-value{color:#8b0000; font-weight:bold; margin-top:6px;}
+.result-value{
+    color:#A52A2A;
+    font-weight:normal;
+    margin-top:10px;
+    padding-top:6px;
+    border-top:1px solid #dddddd;
+    line-height:1.4;
+}
+
 
 /* =====================================================
    BUTTONS
@@ -350,9 +358,9 @@ Hoe meten ?
 Klassieke referentiewaarden voor middelomtrek:
 Mannen: < 94 cm; 94-101 cm verhoogd risico; ≥ 102 cm sterk verhoogd risico
 Vrouwen: < 80 cm; 80-87 cm verhoogd risico; ≥ 88 cm sterk verhoogd risico
-Opmerking: deze waarden houden geen rekening met de lichaamslengte.
+Opmerking: deze waarden houden geen rekening met de lichaamslengte. Het verschil tussen man en vrouw wordt verklaard door het feit dat de opsteller ervan uit ging dat een vrouw gemiddeld 15 cm kleiner is dan de man.
 
-<span class="rood">WHtR corrigeert de buikomtrek door rekening te houden met de lichaaamslengte.
+<span class="rood">WHtR corrigeert de waarde van de buikomtrek, door rekening te houden met de lichaaamslengte.
 <span class="groen">Vuistregel: middelomtrek < 50% van de lichaamslengte.</span>
 `;
 
@@ -489,16 +497,16 @@ oninput="berekenAntropometrie()">
 <div class="tab-content" id="S2">
 
 <div class="question">
-<div class="q-text">BMI ≥ 30 kg/m²
+<div class="q-text">BMI
 <span class="info-btn" onclick="showInfo(INFO_BMI)">ⓘ</span>
-<div id="bmiDecision">Nog niet berekend</div>
+<div class="result-value" id="bmiDecision">Nog niet berekend</div>
 </div>
 </div>
 
 <div class="question">
-<div class="q-text">WHtR ≥ 0,50
+<div class="q-text">WHtR
 <span class="info-btn" onclick="showInfo(INFO_WHTR)">ⓘ</span>
-<div id="whtrDecision">Nog niet berekend</div>
+<div class="result-value" id="whtrDecision">Nog niet berekend</div>
 </div>
 </div>
 
@@ -699,79 +707,109 @@ window.scrollTo({
 }
 
 /* =====================================================
-   Bereken
+   TAB 2
 ===================================================== */
+
 function berekenAntropometrie(){
 
-const gewicht =
-parseFloat(
-document.getElementById("gewicht").value
-);
+    const gewicht =
+        parseFloat(document.getElementById("gewicht").value);
 
-const lengte =
-parseFloat(
-document.getElementById("lengte").value
-);
+    const lengte =
+        parseFloat(document.getElementById("lengte").value);
 
-const middel =
-parseFloat(
-document.getElementById("middel").value
-);
+    const middel =
+        parseFloat(document.getElementById("middel").value);
 
-if(!gewicht || !lengte){
-    return;
-}
+    if (!gewicht || !lengte){
+        return;
+    }
 
-const lengteMeter = lengte / 100;
+    const lengteMeter = lengte / 100;
 
-const bmi =
-gewicht / (lengteMeter * lengteMeter);
+    const bmi =
+        gewicht / (lengteMeter * lengteMeter);
 
-document.getElementById("bmiResult").innerHTML =
-bmi.toFixed(1);
+    document.getElementById("bmiResult").innerHTML =
+        bmi.toFixed(1);
 
-let whtr = null;
+    let whtr = null;
 
-if(middel){
-    whtr = middel / lengte;
-    document.getElementById("whtrResult").innerHTML =
-    whtr.toFixed(2);
+    if (middel){
+        whtr = middel / lengte;
+
+        document.getElementById("whtrResult").innerHTML =
+            whtr.toFixed(2);
+    }
+    else{
+        document.getElementById("whtrResult").innerHTML = "-";
+    }
+
+    /* BMI-classificatie */
+
+    let bmiStatus = "";
+
+    if (bmi < 25){
+        bmiStatus = "Normaal gewicht";
+    }
+    else if (bmi < 30){
+        bmiStatus = "BMI ≥ 25 kg/m² → Overgewicht";
+    }
+    else{
+        bmiStatus = "BMI ≥ 30 kg/m² → Zwaar overgewicht";
+    }
+
+    document.getElementById("bmiDecision").innerHTML =
+        bmiStatus;
+
+    /* WHtR-classificatie */
+
+    let whtrStatus = "Nog niet berekend";
+
+    if (whtr !== null){
+
+        if (whtr < 0.50){
+            whtrStatus = "Normale vetverdeling";
+        }
+        else if (whtr < 0.60){
+            whtrStatus = "WHtR ≥ 0,50 → Adipositas";
+        }
+        else{
+            whtrStatus = "WHtR ≥ 0,60 → Ernstige adipositas";
+        }
+    }
+
     document.getElementById("whtrDecision").innerHTML =
-    whtr >= 0.50 ? "Ja" : "Nee";
+        whtrStatus;
+
+    /* Overtollige adipositas */
+
+    const adipositas =
+        (bmi >= 30) ||
+        (whtr !== null && whtr >= 0.50);
+
+    document.getElementById("adipositasResult").innerHTML =
+        adipositas
+        ? "Verdere klinische evaluatie nodig"
+        : "Nee";
+
+    /* Gewichtsstatus voor eindresultaat */
+
+    let gewichtStatus = "";
+
+    if (bmi < 25){
+        gewichtStatus = "Normaal gewicht";
+    }
+    else if (bmi < 30){
+        gewichtStatus = "Overgewicht";
+    }
+    else{
+        gewichtStatus = "Obesitas";
+    }
+
+    updateResult(adipositas, gewichtStatus);
 }
 
-document.getElementById("bmiDecision").innerHTML =
-bmi >= 30 ? "Ja" : "Nee";
-
-/* GEEN afgeronde schermwaarde gebruiken */
-
-const adipositas =
-(bmi >= 30)
-||
-(whtr !== null && whtr >= 0.50);
-
-document.getElementById("adipositasResult").innerHTML =
-adipositas ? "Ja" : "Nee";
-
-/* Overgewicht bepalen */
-
-let gewichtStatus = "";
-
-if(bmi < 25){
-    gewichtStatus = "Normaal gewicht";
-}
-
-else if(bmi < 30){
-    gewichtStatus = "Overgewicht";
-}
-
-else{
-    gewichtStatus = "Obesitas";
-}
-
-updateResult(adipositas, gewichtStatus);
-
-}
 
 /* =====================================================
    RESULTAAT
