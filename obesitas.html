@@ -321,6 +321,18 @@ textarea{
   white-space:pre-line;
 }
 
+.foto {
+  width: 90%;
+  max-width: 1200px;
+  display: block;
+  margin: 0 auto 25px auto;
+  transform: scale(1);
+  transition: transform 0.05s linear;
+  cursor: zoom-in;
+  user-select: none;
+}
+.fotokader { margin: 25px 0; }
+
 </style>
 </head>
 
@@ -652,6 +664,9 @@ DOI: 10.1038/s41586-026-11237-5
 
 </div>
 
+<div class="fotokader"><img class="foto" src="images/obesitas.jpg" alt="obesitas"></div>
+<hr>
+
 `;
 
 /* =====================================================
@@ -712,75 +727,44 @@ window.scrollTo({
 
 function berekenAntropometrie(){
 
-    const gewicht =
-        parseFloat(document.getElementById("gewicht").value);
+    const gewicht = parseFloat(document.getElementById("gewicht").value);
+    const lengte = parseFloat(document.getElementById("lengte").value);
+    const middel = parseFloat(document.getElementById("middel").value);
 
-    const lengte =
-        parseFloat(document.getElementById("lengte").value);
-
-    const middel =
-        parseFloat(document.getElementById("middel").value);
-
-    if (!gewicht || !lengte){
-        return;
-    }
-
+    if (!gewicht || !lengte){return;}
     const lengteMeter = lengte / 100;
+    const bmi = gewicht / (lengteMeter * lengteMeter);
 
-    const bmi =
-        gewicht / (lengteMeter * lengteMeter);
-
-    document.getElementById("bmiResult").innerHTML =
-        bmi.toFixed(1);
+    document.getElementById("bmiResult").innerHTML = bmi.toFixed(1);
 
     let whtr = null;
 
     if (middel){
         whtr = middel / lengte;
-
-        document.getElementById("whtrResult").innerHTML =
-            whtr.toFixed(2);
+        document.getElementById("whtrResult").innerHTML = whtr.toFixed(2);
     }
-    else{
-        document.getElementById("whtrResult").innerHTML = "-";
-    }
+    else{document.getElementById("whtrResult").innerHTML = "-";}
 
     /* BMI-classificatie */
 
     let bmiStatus = "";
 
-    if (bmi < 25){
-        bmiStatus = "Normaal gewicht";
-    }
-    else if (bmi < 30){
-        bmiStatus = "BMI ≥ 25 kg/m² → Overgewicht";
-    }
-    else{
-        bmiStatus = "BMI ≥ 30 kg/m² → Zwaar overgewicht";
-    }
+    if (bmi < 25){bmiStatus = "Normaal gewicht";}
+    else if (bmi < 30){bmiStatus = "BMI ≥ 25 kg/m² → Overgewicht";}
+    else{bmiStatus = "BMI ≥ 30 kg/m² → Zwaar overgewicht";}
 
-    document.getElementById("bmiDecision").innerHTML =
-        bmiStatus;
+    document.getElementById("bmiDecision").innerHTML = bmiStatus;
 
     /* WHtR-classificatie */
 
     let whtrStatus = "Nog niet berekend";
 
     if (whtr !== null){
-
-        if (whtr < 0.50){
-            whtrStatus = "Normale vetverdeling";
-        }
-        else if (whtr < 0.60){
-            whtrStatus = "WHtR ≥ 0,50 → Adipositas";
-        }
-        else{
-            whtrStatus = "WHtR ≥ 0,60 → Ernstige adipositas";
-        }
+        if (whtr < 0.50){whtrStatus = "Normale vetverdeling";}
+        else if (whtr < 0.60){whtrStatus = "WHtR ≥ 0,50 → Adipositas";}
+        else{whtrStatus = "WHtR ≥ 0,60 → Ernstige adipositas";}
     }
-
-    document.getElementById("whtrDecision").innerHTML =
-        whtrStatus;
+    document.getElementById("whtrDecision").innerHTML = whtrStatus;
 
     /* Overtollige adipositas */
 
@@ -797,49 +781,27 @@ function berekenAntropometrie(){
 
     let gewichtStatus = "";
 
-    if (bmi < 25){
-        gewichtStatus = "Normaal gewicht";
-    }
-    else if (bmi < 30){
-        gewichtStatus = "Overgewicht";
-    }
-    else{
-        gewichtStatus = "Obesitas";
-    }
+    if (bmi < 25){gewichtStatus = "Normaal gewicht";}
+    else if (bmi < 30){gewichtStatus = "Overgewicht";}
+    else{gewichtStatus = "Obesitas";}
 
     updateResult(adipositas, gewichtStatus);
 }
-
 
 /* =====================================================
    RESULTAAT
 ===================================================== */
 
 function updateResult(adipositas, gewichtStatus){
-
-const orgaan =
-document.querySelectorAll(".orgaan:checked").length > 0;
-
-const functie =
-document.querySelectorAll(".functie:checked").length > 0;
-
+const orgaan = document.querySelectorAll(".orgaan:checked").length > 0;
+const functie = document.querySelectorAll(".functie:checked").length > 0;
 let diagnose = "";
-
-if(!adipositas){
-    diagnose = gewichtStatus;
-
-}
-else if(!orgaan && !functie){
-    diagnose = "Preklinische obesitas";
-
-}
-else{
-    diagnose = "Klinische obesitas";
-
+if(!adipositas){diagnose = gewichtStatus;}
+else if(!orgaan && !functie){diagnose = "Preklinische obesitas";}
+else{diagnose = "Klinische obesitas";
 }
 
-document.getElementById("diagnoseResult").innerHTML =
-diagnose;
+document.getElementById("diagnoseResult").innerHTML = diagnose;
 
 /* DOSSIERTEKST */
 
@@ -848,30 +810,22 @@ let tekst = "";
 if(!adipositas){
 
     if(gewichtStatus==="Overgewicht"){
-        tekst =
-        "Er is overgewicht aanwezig maar er zijn momenteel onvoldoende criteria voor obesitas volgens het diagnostisch kader.";
-
+        tekst = "Er is overgewicht aanwezig maar er zijn momenteel onvoldoende criteria voor obesitas volgens het diagnostisch kader.";
     } else {
-        tekst =
-        "Normaal gewicht. Er zijn momenteel onvoldoende criteria voor obesitas volgens het diagnostisch kader.";
+        tekst = "Normaal gewicht. Er zijn momenteel onvoldoende criteria voor obesitas volgens het diagnostisch kader.";
     }
 
 }
 else if(!orgaan && !functie){
-
     tekst =
     "Er werd overtollige adipositas vastgesteld op basis van antropometrische parameters. Er werden geen obesitasgerelateerde orgaandisfuncties of functionele beperkingen vastgesteld. Dit past bij preklinische obesitas.";
-
 }
 else{
-
     tekst =
     "Er werd overtollige adipositas vastgesteld. Tevens zijn obesitasgerelateerde orgaandisfuncties en/of functionele beperkingen aanwezig. Dit voldoet aan de criteria voor klinische obesitas.";
-
 }
 
-document.getElementById("dossierTekst").value =
-tekst;
+document.getElementById("dossierTekst").value = tekst;
 
 }
 
@@ -891,21 +845,11 @@ document.addEventListener("change", function(e){
 
 function toonResultaat(){
 
-const bmi=
-document.getElementById("bmiResult").innerHTML;
-
-const whtr=
-document.getElementById("whtrResult").innerHTML;
-
-const diagnose=
-document.getElementById("diagnoseResult").innerHTML;
-
-const dossier=
-document.getElementById("dossierTekst").value;
-
-const w=
-window.open();
-
+const bmi= document.getElementById("bmiResult").innerHTML;
+const whtr= document.getElementById("whtrResult").innerHTML;
+const diagnose= document.getElementById("diagnoseResult").innerHTML;
+const dossier= document.getElementById("dossierTekst").value;
+const w= window.open();
 w.document.write(`
 
 <html>
@@ -922,9 +866,7 @@ padding:20px;
 line-height:1.5;
 }
 
-h2{
-color:#2e7d32;
-}
+h2{color:#2e7d32;}
 
 .box{
 margin-bottom:15px;
@@ -949,27 +891,14 @@ border-radius:6px;
 
 <h2>Resultaat obesitasdiagnostiek</h2>
 
-<div class="box">
-BMI: ${bmi}
-</div>
-
-<div class="box">
-WHtR: ${whtr}
-</div>
-
-<div class="box">
-Diagnose:
-<b>${diagnose}</b>
-</div>
-
-<div class="box">
-${dossier}
-</div>
+<div class="box">BMI: ${bmi}</div>
+<div class="box">WHtR: ${whtr}</div>
+<div class="box">Diagnose:<b>${diagnose}</b></div>
+<div class="box">${dossier}</div>
 
 <button onclick="window.print()"> Opslaan als PDF </button>
 
 </body>
-
 </html>
 
 `);
@@ -979,18 +908,10 @@ ${dossier}
 </script>
 
 <div class="info-modal" id="infoModal">
-
-  <div class="info-modal-content">
-
-    <span class="info-close"
-      onclick="closeInfo()">
-      ×
-    </span>
-
-    <div class="info-text" id="infoText"></div>
-
-  </div>
-
+<div class="info-modal-content">
+<span class="info-close" onclick="closeInfo()">×</span>
+<div class="info-text" id="infoText"></div>
+</div>
 </div>
 
 </body>
